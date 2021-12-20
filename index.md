@@ -8,3 +8,4 @@
 ### The utility functions library
 
 1. [Start the project](lib-start-the-project.md)
+1. [Add the first utility function](lib-add-first-utility-function.md)
