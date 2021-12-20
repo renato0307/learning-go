@@ -10,7 +10,7 @@ structure is needed to ensure we keep the code organized and easily to
 maintain.
 
 The typical project layout of a Go project can be found
-at https://github.com/golang-standards/project-layout.
+at [https://github.com/golang-standards/project-layout]().
 
 I want to highlight the following parts:
 
@@ -23,12 +23,12 @@ I want to highlight the following parts:
 > (e.g., /pkg/mypubliclib). Other projects will import these libraries
 > expecting them to work, so think twice before you put something here.
 
-This library will not have executables so we don't need the `cmd` folder.
+The libraries will not have executables so we don't need the `cmd` folder.
 
 Having a `pkg` folder is overkill for this case as we don't need other folders.
 This would only add an additional indirection.
 
-So the approach here will be to create a folder per category, that is:
+So the approach here is be to create a folder per category:
 * `programming`
 * `finance`
 * etc.
@@ -46,19 +46,19 @@ We will start by the programming category so create let's the folder:
 mkdir programming
 ```
 The first utility function is the `uuid` generator, so run the following 
-commands create the needed Go files:
+commands to create the needed Go files:
 
 ```sh
 echo "package programming" > programming/uuid.go
 echo "package programming" > programming/uuid_test.go
 ```
 
-The package name must match the folder where the files are.
+Notice that the package name must match the folder where the files are.
 
 The `uuid.go` file will contain the logic.
 The `uuid_test.go` file will contain the tests.
 
-Add the following content in the `uuid.go` file:
+Add the following contents in the `uuid.go` file:
 
 ```go
 package programming
