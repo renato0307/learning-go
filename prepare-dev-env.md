@@ -1,5 +1,5 @@
 
-# Prepare the development environment
+# Prepare the Development Environment
 
 ## Installing Go
 
