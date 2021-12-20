@@ -1,2 +1,5 @@
 # learning-go
-A repository with documentation for Golang learning
+
+A repository with documentation for Go learning.
+
+Available at https://renatoalvestorres.net/learning-go.
