@@ -4,6 +4,7 @@
 
 1. [What are we going to build?](intro-what-are-we-going-to-build.md)
 1. [Prepare the development environment](intro-prepare-dev-env.md)
+1. [Please do a Go tour](intro-go-tour.md)
 
 ### The utility functions library
 
