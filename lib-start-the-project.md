@@ -2,7 +2,6 @@
 
 In this step we will:
 
-1. Create the project folder
 1. Create the library folder
 1. Init the git repository
 1. Enable dependency tracking for the Go code
@@ -13,9 +12,9 @@ In this step we will:
 The following commands are needed for step 1, 2, 3 and 4:
 
 ```sh
-mkdir learning-go && cd learning-go
 mkdir learning-go-lib && cd learning-go-lib
 git init .
+git branch -m main
 go mod init github.com/renato0307/learning-go.lib
 ```
 
@@ -51,5 +50,20 @@ You must see in the output:
 ```
 Hello, World!
 ```
+
+Next, headup to https://github.com and create a repository.
+
+In my case I named it `learning-go-lib`.
+
+After the repository is created, add it as remote origin and do the inital commit and push:
+
+```sh
+echo "# learning-go-lib" >> README.md
+git add .
+git remote add origin git@github.com:renato0307/learning-go-lib.git
+git commit -m "initial version"
+git branch -M main
+git push -u origin main
+````
 
 With this all set, we are ready to start.
