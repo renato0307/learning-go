@@ -1,5 +1,10 @@
 ## Welcome to Learning Go
 
-1. [What are we going to build?](what-are-we-going-to-build.md)
-1. [Prepare the development environment](prepare-dev-env.md)
-1. [Start a project](start-a-project.md)
+### Introduction
+
+1. [What are we going to build?](intro-what-are-we-going-to-build.md)
+1. [Prepare the development environment](intro-prepare-dev-env.md)
+
+### The utility functions library
+
+1. [Start the project](lib-start-the-project.md)
