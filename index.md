@@ -20,7 +20,7 @@ __Are you ready?__
 
 1. [Start the project for the Library](lib-start-the-project.md)
 1. [Add the first utility function to the Library](lib-add-first-utility-function.md)
-1. Start the project for the API
+1. [Start the project for the API](api-start-the-project.md)
 1. Add the first utility function to the API
 1. Refactor the Library for better API testing
 

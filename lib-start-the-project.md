@@ -14,7 +14,6 @@ The following commands are needed for steps 1, 2, and 3:
 ```sh
 mkdir learning-go-lib && cd learning-go-lib
 git init .
-git branch -m main
 go mod init github.com/renato0307/learning-go-lib
 ```
 
