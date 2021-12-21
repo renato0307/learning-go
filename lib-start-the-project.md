@@ -15,7 +15,7 @@ The following commands are needed for steps 1, 2, and 3:
 mkdir learning-go-lib && cd learning-go-lib
 git init .
 git branch -m main
-go mod init github.com/renato0307/learning-go.lib
+go mod init github.com/renato0307/learning-go-lib
 ```
 
 Replace the `renato0307` part by the correct value for you. This should be the
@@ -51,11 +51,11 @@ You should see in the output:
 Hello, World!
 ```
 
-Next, headup to [https://github.com]() and create a repository.
+Next, go to [https://github.com]() and create a repository.
 
 In my case I named it `learning-go-lib`.
 
-After the repository is created, add it as remote origin and do the inital commit and push:
+After the repository is created, add it as remote origin and do the initial commit and push:
 
 ```sh
 echo "# learning-go-lib" >> README.md
