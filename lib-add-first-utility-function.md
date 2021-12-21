@@ -1,4 +1,4 @@
-# Adding the first utility function
+# Adding the first utility function to the Library
 
 As described in the 
 [What are we going to build?](intro-what-are-we-going-to-build.md) section,
@@ -166,4 +166,25 @@ To finish, commit and push all files to GitHub:
 git add .
 git commit -m "feat: add uuid function"
 git push
+```
+
+To be able to import the library in the API we need to version it. This can be 
+achieved by using tags.
+
+Execute the following commands:
+
+```sh
+git tag -a v0.0.1 -m "v0.0.1"
+git push origin v0.0.1
+```
+
+The result should be similar to:
+
+```
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 156 bytes | 156.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0)
+To github.com:renato0307/learning-go-lib.git
+ * [new tag]         v0.0.1 -> v0.0.1
 ```
