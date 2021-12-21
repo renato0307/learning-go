@@ -159,3 +159,11 @@ func TestNewUuidWithoutHyphen(t *testing.T) {
 The final results are (in this case using "Testing" from the Activity bar):
 
 ![High level overview](/assets/lib-add-first-utility-function-3.png)
+
+To finish, commit and push all files to GitHub:
+
+```sh
+git add .
+git commit -m "feat: add uuid function"
+git push
+```
