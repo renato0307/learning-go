@@ -73,7 +73,7 @@ Date: Tue, 21 Dec 2021 06:52:21 GMT
 ```
 
 
-Next, goto to [https://github.com]() and create a repository.
+Next, go to [https://github.com]() and create a repository.
 
 In my case I named it `learning-go-api`.
 

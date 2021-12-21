@@ -1,6 +1,6 @@
 # Welcome to Learning Go
 
-Learn Go by build a REST API and a Command Line Interface (CLI).
+Learn Go by building a REST API and a Command Line Interface (CLI).
 
 Both will have production quality so we additionally need to cover:
 * Security
