@@ -116,7 +116,7 @@ func TestNewUuidWithHyphen(t *testing.T) {
 We are going to use `github.com/stretchr/testify` library to provide common
 assertions and mocking capabilities.
 
-The tests can be executed from vscode in tow different ways:
+The tests can be executed from vscode in two different ways:
 1. Using the "Testing" activity in the "Activity Bar" (#1 and #2 in the image)
 1. Directly in the test file (#3 in the image)
 

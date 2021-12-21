@@ -1,5 +1,15 @@
 # Welcome to Learning Go
 
+Learn Go by build a REST API and a Command Line Interface (CLI).
+
+Both will have production quality so we additionally need to cover:
+* Security
+* Testing
+* CI/CD & Deployment (in a Kubernetes cluster)
+* Monitoring & Observability
+
+__Are you ready?__
+
 ## Introduction
 
 1. [What are we going to build?](intro-what-are-we-going-to-build.md)
