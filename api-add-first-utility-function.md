@@ -13,7 +13,7 @@ POST /finance/calculate-compound-interests  # calculates interests
 ```
 
 In the main folder we are going to create the `main.go` file which starts
-the web server and create a folder for each category (programming, finance,
+the web server. We will create a folder for each category (programming, finance,
 etc.)
 
 The API will import the library and add the needed logic to handle HTTP
@@ -24,10 +24,10 @@ route grouping. Please check a simple example
 [here](https://github.com/gin-gonic/gin#grouping-routes).
 
 
-## The code to generate UUIDs
+## The implementation of the web service
 
-So the first step is to create the `programming` folder and the files for 
-UUID utility support.
+So the first step is to create the `programming` folder and the implementation
+and test files.
 
 
 ```sh
@@ -47,6 +47,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/renato0307/learning-go-lib/programming"
 )
+
+// postUuidOutput is the output of the "POST /programming/uuid" action
+type postUuidOutput struct {
+	UUID string `json:"uuid"`
+}
 
 // SetRouterGroup defines all the routes for the programming functions
 func SetRouterGroup(base *gin.RouterGroup) *gin.RouterGroup {
@@ -68,7 +73,8 @@ func postUuid() gin.HandlerFunc {
 		noHyphensParamValue := c.Query("no-hyphens")
 		withoutHyphens := noHyphensParamValue == "true"
 
-		output := programming.NewUuid(withoutHyphens)
+		uuid := programming.NewUuid(withoutHyphens)
+		output := postUuidOutput{uuid: uuid}
 
 		c.JSON(http.StatusOK, output)
 	}
@@ -77,23 +83,25 @@ func postUuid() gin.HandlerFunc {
 
 Let's break it down.
 
-The `SetRouterGroup` function defines all the endpoints for the programming utilities.
-Once the server receives the `POST /programming/uuid` request, it will be
-processed by the function returned by `postUuid`.
+The `postUuidOutput` struct defines the structure of the web service response.
 
-The `postUuid` function, returns an another function (in this case,
-an anonymous function) that complies with the `HandlerFunc` type interface:
+The `SetRouterGroup` function defines all the endpoints for the programming
+utilities. Once the server receives the `POST /programming/uuid` request, it
+will be processed by the function returned by `postUuid`.
+
+The `postUuid` function, returns another function (in this case, an anonymous
+function) that must comply with the `HandlerFunc` type interface:
 
 ```go
 type HandlerFunc func(*Context)
 ```
 
-The `Context` gives access to the HTTP request to get the query parameters,
-for example.
+The `Context` gives access to the HTTP request, for example to get the query
+parameters
 
 After generating the UUID by calling the `NewUuid` function from the 
-`programming` package, the `c.JSON` serializes the return status and the output
-to the HTTP response.
+`programming` package imported the library, the `c.JSON` serializes the return
+status and the output to the HTTP response.
 
 ## Changes on the main.go
 
@@ -138,21 +146,72 @@ The result should be similar to:
 
 ```
 HTTP/1.1 200 OK
-Content-Length: 38
+Content-Length: 47
 Content-Type: application/json; charset=utf-8
-Date: Tue, 21 Dec 2021 18:18:56 GMT
+Date: Wed, 21 Dec 2021 21:02:37 GMT
 
-"091650b9-8b50-4970-b5ac-7b511a55518b"
+{
+    "uuid": "2ea3a39b-51a1-4fe3-80b0-9d9a33d176be"
+}
 ```
 
 ## Unit testing
 
-The contents of the `programming_test.go` file are:
+The tests go to the `programming_test.go` file:
+
+
+
+The first test will cover the execution with hyphens:
+
+```go
+func TestPostUuid(t *testing.T) {
+	// arrange
+	r := gin.Default()
+	v1 := r.Group("/v1")
+	SetRouterGroup(v1)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/v1/programming/uuid", nil)
+
+	// act
+	r.ServeHTTP(w, req)
+
+	// assert
+	assert.Equal(t, w.Code, http.StatusOK)
+
+	output := postUuidOutput{}
+	err := json.Unmarshal(w.Body.Bytes(), &output)
+
+	assert.Nil(t, err)
+	assert.Len(t, output.UUID, 36)
+	assert.Contains(t, output.UUID, "-")
+}
+```
+
+The HTTP based testing use the `net/http/httptest` package, which allows to
+record the result of the request so we can make assertions over it.
+
+If the `arrange` block we:
+1. Initialize Gin and the routes
+1. Create the HTTP recorder and the request to execute
+
+The `ServeHTTP` function executes a request and writes to the response.
+
+In the `assert`block we:
+1. Check the return status
+1. Confirm we receive an UUID with hyphens
+
+After we also need to add a test for the case without hyphens.
+
+__CHALLENGE__: don't scroll down and try to do this test by yourself
+
+The final contents of the `programming_test.go` file is:
 
 ```go
 package programming
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -181,9 +240,12 @@ func TestPostUuid(t *testing.T) {
 	// assert
 	assert.Equal(t, w.Code, http.StatusOK)
 
-	body := w.Body.String()
-	assert.Len(t, body, 38)
-	assert.Contains(t, body, "-")
+	output := postUuidOutput{}
+	err := json.Unmarshal(w.Body.Bytes(), &output)
+
+	assert.Nil(t, err)
+	assert.Len(t, output.UUID, 36)
+	assert.Contains(t, output.UUID, "-")
 }
 
 func TestPostUuidWithNoHyphen(t *testing.T) {
@@ -198,8 +260,11 @@ func TestPostUuidWithNoHyphen(t *testing.T) {
 	// assert
 	assert.Equal(t, w.Code, http.StatusOK)
 
-	body := w.Body.String()
-	assert.Len(t, body, 34)
-	assert.NotContains(t, body, "-")
+	output := postUuidOutput{}
+	err := json.Unmarshal(w.Body.Bytes(), &output)
+
+	assert.Nil(t, err)
+	assert.Len(t, output.UUID, 32)
+	assert.NotContains(t, output.UUID, "-")
 }
 ```
