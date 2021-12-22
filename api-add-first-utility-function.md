@@ -191,19 +191,19 @@ func TestPostUuid(t *testing.T) {
 The HTTP based testing use the `net/http/httptest` package, which allows to
 record the result of the request so we can make assertions over it.
 
-If the `arrange` block we:
+In the `arrange` block:
 1. Initialize Gin and the routes
 1. Create the HTTP recorder and the request to execute
 
 The `ServeHTTP` function executes a request and writes to the response.
 
-In the `assert`block we:
+In the `assert`block:
 1. Check the return status
 1. Confirm we receive an UUID with hyphens
 
-After we also need to add a test for the case without hyphens.
+After we also need to add a test for the case _without hyphens_.
 
-__CHALLENGE__: don't scroll down and try to do this test by yourself
+__CHALLENGE__: don't scroll down and try to do this test by yourself!
 
 The final contents of the `programming_test.go` file is:
 
