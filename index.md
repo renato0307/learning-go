@@ -18,11 +18,11 @@ __Are you ready?__
 
 ## Iteration 1 - library and API skeleton
 
-1. [Start the project for the Library](lib-start-the-project.md)
-1. [Add the first utility function to the Library](lib-add-first-utility-function.md)
-1. [Start the project for the API](api-start-the-project.md)
-1. [Add the first utility function to the API](api-add-first-utility-function.md)
-1. Refactor the Library for better API testing
+1. [Start the project for the Library](it1-lib-start-the-project.md)
+1. [Add the first utility function to the Library](it1-lib-add-first-utility-function.md)
+1. [Start the project for the API](it1-api-start-the-project.md)
+1. [Add the first utility function to the API](it1-api-add-first-utility-function.md)
+1. [Unit tests in the API using mocks](it1-api-unit-tests-with-mocks.md)
 
 ## Iteration 2 - basic CI/CD
 1. GitHub actions for the Library

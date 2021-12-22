@@ -90,7 +90,8 @@ utilities. Once the server receives the `POST /programming/uuid` request, it
 will be processed by the function returned by `postUuid`.
 
 The `postUuid` function, returns another function (in this case, an anonymous
-function) that must comply with the `HandlerFunc` type interface:
+[closure](https://go.dev/tour/moretypes/25) function) that must comply with the
+`HandlerFunc` type interface:
 
 ```go
 type HandlerFunc func(*Context)

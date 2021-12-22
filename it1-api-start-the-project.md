@@ -77,7 +77,8 @@ Next, go to [https://github.com]() and create a repository.
 
 In my case I named it `learning-go-api`.
 
-After the repository is created, add it as remote origin and do the inital commit and push:
+After the repository is created, add it as remote origin and do the initial
+commit and push:
 
 ```sh
 echo "# learning-go-api" >> README.md
