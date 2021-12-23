@@ -25,8 +25,18 @@ __Are you ready?__
 1. [Unit tests in the API using mocks](it1-api-unit-tests-with-mocks.md)
 
 ## Iteration 2 - basic CI/CD
-1. GitHub actions for the Library
-1. Docker image for the API
+1. [GitHub actions for the Library](it2-github-actions-for-the-library.md)
+1. Create the Dockerfile for the API
 1. GitHub actions for the API
+1. Running GitHub actions locally
+
+## Iteration 3 - consolidate concepts by adding more features
+1. Add programming/jwt-debugger
+3. Add finance/currency-converter
+
+## Iteration 4 - deploying to kubernetes
+1. Create a local kubernetes cluster
+1. Create a Helm chart
+1. Use [fluxcd](https://fluxcd.io) to deploy
 
 ## Next Iterations - WIP
