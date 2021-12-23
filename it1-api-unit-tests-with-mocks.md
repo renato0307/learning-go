@@ -144,9 +144,9 @@ func TestNewUuidWithHyphen(t *testing.T) {
 }
 
 func TestNewUuidWithoutHyphen(t *testing.T) {
-	uuidWithHyphen := pf.NewUuid(true)
+	uuidWithHyphen := pf.NewUuid(true) // "pf" used as a receiver
 
-	assert.Len(t, uuidWithHyphen, 32) // "pf" used as a receiver
+	assert.Len(t, uuidWithHyphen, 32)
 	assert.NotContains(t, uuidWithHyphen, "-")
 }
 ```
@@ -169,7 +169,7 @@ After execute the following command to generate the stubs:
 mockery -all -inpkg -case snake
 ```
 
-This will generate a new file named `mock_interface` in the `programming`
+This will generate a new file named `mock_interface.go` in the `programming`
 folder. The contents of this file are:
 
 ```go
