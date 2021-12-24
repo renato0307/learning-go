@@ -25,10 +25,10 @@ __Are you ready?__
 1. [Unit tests in the API using mocks](it1-api-unit-tests-with-mocks.md)
 
 ## Iteration 2 - basic CI/CD
+1. [GitHub actions running locally](it2-github-action-running-locally.md)
 1. [GitHub actions for the Library](it2-github-actions-for-the-library.md)
 1. Create the Dockerfile for the API
 1. GitHub actions for the API
-1. Running GitHub actions locally
 
 ## Iteration 3 - consolidate concepts by adding more features
 1. Add programming/jwt-debugger
