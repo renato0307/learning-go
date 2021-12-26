@@ -31,7 +31,7 @@ __Are you ready?__
 1. [GitHub actions for the API](it2-github-action-for-the-api.md)
 
 ## Iteration 3 - consolidate concepts by adding more features
-1. Add programming/jwt-debugger
+1. [Add programming/jwtdebugger](it3-add-programming-jwt-debugger.md)
 3. Add finance/currency-converter
 
 ## Iteration 4 - deploying to kubernetes

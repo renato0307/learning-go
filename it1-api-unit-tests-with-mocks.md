@@ -388,4 +388,4 @@ func TestPostUuid(t *testing.T) {
 }
 ```
 
-__CHALLENGE__: Fix the other test in the file and make everything green.
+__CHALLENGE__: fix the other test in the file and make everything green.
