@@ -53,7 +53,7 @@ To run this code, go back to the command line and enter:
 go run main.go
 ```
 
-Visit "localhost:8080" on browser or by using `curl` or `httpie`.
+Visit "localhost:8080" on browser or use `httpie`.
 
 ```sh
 http localhost:8080

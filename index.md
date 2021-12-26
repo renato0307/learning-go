@@ -27,7 +27,7 @@ __Are you ready?__
 ## Iteration 2 - basic CI/CD
 1. [GitHub actions running locally](it2-github-action-running-locally.md)
 1. [GitHub actions for the Library](it2-github-actions-for-the-library.md)
-1. Create the Dockerfile for the API
+1. [Running the API using a container](it2-run-api-using-container.md)
 1. GitHub actions for the API
 
 ## Iteration 3 - consolidate concepts by adding more features

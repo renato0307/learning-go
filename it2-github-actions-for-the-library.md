@@ -71,7 +71,7 @@ git commit -m "chore: add test github workflow"
 git push
 ```
 
-After a couple of minutes, head to GitHub and check the result:
+After a couple of minutes, head to GitHub and check the result.
 
 Click on the green arrow and after in the "Details" link as illustrated below:
 

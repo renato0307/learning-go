@@ -137,7 +137,7 @@ Go to the command line and run
 go run main.go
 ```
 
-In another terminal use `curl` or `httpie` to execute the call:
+In another terminal use `httpie` to execute the call:
 
 ```sh
 http POST localhost:8080/v1/programming/uuid

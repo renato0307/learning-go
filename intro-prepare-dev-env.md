@@ -30,3 +30,19 @@ Choose the "Install All" option when prompted.
 The end result should be similar to:
 
 ![Install Go tools result](/assets/prepare-dev-env-4.png)
+
+## Installing Docker
+
+We will need Docker to build and run containers. 
+
+Install it using the instructions available at
+[https://docs.docker.com/engine/install](https://docs.docker.com/engine/install).
+
+## Installing curl or httpie
+
+We'll use a command line interface to do requests to our API. That can be
+achieve with [curl](https://curl.se) or
+[httpie](https://github.com/httpie/httpie).
+
+I like the use the latest, httpie, because it tries to make CLI interaction
+with web services as human-friendly as possible.
