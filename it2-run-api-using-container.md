@@ -119,3 +119,5 @@ Date: Sun, 26 Dec 2021 09:26:36 GMT
     "message": "Hello, welcome to the learning-go-api"
 }
 ```
+
+Finish up by committing and pushing the changes to GitHub.

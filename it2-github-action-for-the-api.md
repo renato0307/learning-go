@@ -1,9 +1,18 @@
-# GitHub actions for the Library
+# GitHub actions for the API
 
-The GitHub actions for the library are going to be pretty simple to start with.
+The GitHub actions for the API are going to be a little more complex than
+the ones we did for the Library.
 
-We want to run the tests to ensure everything is OK, before each push or
-pull request.
+In this case we want:
+
+1. To run the tests to ensure everything is OK, before each push or
+pull request
+1. Generate a new container image each time a new version of the API is created
+
+## Running tests action
+
+This is going to be very similar to the one we did for the Library. You can just
+copy the same workflow file definition.
 
 First create the workflows folder:
 
@@ -54,30 +63,15 @@ downloaded but in the end you should see something like:
 
 (...)
 
-| === RUN   TestNewUuidWithHyphen
-| --- PASS: TestNewUuidWithHyphen (0.00s)
-| === RUN   TestNewUuidWithoutHyphen
-| --- PASS: TestNewUuidWithoutHyphen (0.00s)
 | PASS
-| ok    github.com/renato0307/learning-go-lib/programming       0.003s
+| ok    github.com/renato0307/learning-go-api/programming       0.006s
 [Test/build]   ✅  Success - Test
 ```
 
 Finish up by committing and pushing the changes to GitHub.
 
-```sh
-git add .
-git commit -m "chore: add test github workflow"
-git push
-```
+After a couple of minutes, head to GitHub and check the result, like we did
+for the library.
 
-After a couple of minutes, head to GitHub and check the result.
 
-Click on the green arrow and after in the "Details" link as illustrated below:
-
-![Library](/assets/github-actions-for-the-library-1.png)
-
-On the details you can expand the "Test" step and check for details:
-
-![Library](/assets/github-actions-for-the-library-2.png)
-
+## Create container image action

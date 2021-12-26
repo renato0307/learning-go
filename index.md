@@ -28,7 +28,7 @@ __Are you ready?__
 1. [GitHub actions running locally](it2-github-action-running-locally.md)
 1. [GitHub actions for the Library](it2-github-actions-for-the-library.md)
 1. [Running the API using a container](it2-run-api-using-container.md)
-1. GitHub actions for the API
+1. [GitHub actions for the API](it2-github-action-for-the-api.md)
 
 ## Iteration 3 - consolidate concepts by adding more features
 1. Add programming/jwt-debugger
