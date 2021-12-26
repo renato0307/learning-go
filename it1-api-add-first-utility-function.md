@@ -158,9 +158,7 @@ Date: Wed, 21 Dec 2021 21:02:37 GMT
 
 ## Unit testing
 
-The tests go to the `programming_test.go` file:
-
-
+The tests go to the `programming_test.go` file.
 
 The first test will cover the execution with hyphens:
 

@@ -32,7 +32,8 @@ __Are you ready?__
 
 ## Iteration 3 - consolidate concepts by adding more features
 1. [Add programming/jwtdebugger](it3-add-programming-jwt-debugger.md)
-3. Add finance/currency-converter
+1. Add finance/currency-converter
+1. API refactoring
 
 ## Iteration 4 - deploying to kubernetes
 1. Create a local kubernetes cluster
@@ -40,3 +41,7 @@ __Are you ready?__
 1. Use [fluxcd](https://fluxcd.io) to deploy
 
 ## Next Iterations - WIP
+1. API error handling
+1. Authentication & Authorization
+1. Testing deep dive (coverage, etc.)
+1. Structured logging
