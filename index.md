@@ -45,3 +45,4 @@ __Are you ready?__
 1. Authentication & Authorization
 1. Testing deep dive (coverage, etc.)
 1. Structured logging
+1. Go tools (gofmt, go mod, ...)
