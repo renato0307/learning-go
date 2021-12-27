@@ -111,6 +111,9 @@ For example:
 func Compile(str string) (*Regexp, error) {
 ```
 
+Check more about comments in the
+[Effective Go documentation](https://go.dev/doc/effective_go#commentary).
+
 ----
 
 The next step is to add the tests (you can do it first if you prefer TDD...):
