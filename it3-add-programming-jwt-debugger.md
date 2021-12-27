@@ -201,7 +201,7 @@ git push origin v0.0.3
 
 __CHALLENGE__: try to implement this by yourself before proceeding.
 
-We are going the add support to execute the JWT debugger when sending a `POST`
+We are going to add support to execute the JWT debugger when sending a `POST`
 request to `/programming/jwt`. The JWT will be sent in the body of the request.
 
 The first change is to update the Library version and run `go mod tidy`:
