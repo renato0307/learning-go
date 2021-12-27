@@ -27,6 +27,22 @@ directory.
 The `go.mod` file describes the module’s properties, including its dependencies
 on other modules and on versions of Go.
 
+Each time a new dependency is added running the `go mod tidy` command will
+update the `go.mod` file.
+
+The `go` command maintains a file named `go.sum` containing the expected 
+cryptographic hashes of the content of specific module versions.
+
+
+From the official
+[blog post about Go Modules](https://go.dev/blog/using-go-modules):
+
+> The go command uses the `go.sum` file to ensure that future downloads of these
+> modules retrieve the same bits as the first download, to ensure the modules
+> your project depends on do not change unexpectedly, whether for malicious,
+> accidental, or other reasons. Both `go.mod` and `go.sum` should be checked
+ into version control.
+
 Next, open vscode by typing:
 
 ```sh
