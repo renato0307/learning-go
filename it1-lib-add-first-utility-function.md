@@ -49,8 +49,8 @@ The first utility function is the `uuid` generator, so run the following
 commands to create the needed Go files:
 
 ```sh
-echo "package programming" > programming/uuid.go
-echo "package programming" > programming/uuid_test.go
+touch programming/uuid.go
+touch programming/uuid_test.go
 ```
 
 Notice that the package name must match the folder where the files are.

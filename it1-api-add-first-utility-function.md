@@ -32,8 +32,8 @@ and test files.
 
 ```sh
 mkdir programming
-echo "package programming" > programming/programming.go
-echo "package programming" > programming/programming_test.go
+touch programming/programming.go
+touch programming/programming_test.go
 ```
 
 The code for `programming.go` is:
