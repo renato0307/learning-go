@@ -20,6 +20,13 @@ go mod init github.com/renato0307/learning-go-lib
 Replace the `renato0307` part by the correct value for you. This should be the
 value of a GitHub repository where you will store the project.
 
+The `go mod init` command initializes and writes a new `go.mod` file in the
+current directory, in effect creating a new module rooted at the current
+directory.
+
+The `go.mod` file describes the module’s properties, including its dependencies
+on other modules and on versions of Go.
+
 Next, open vscode by typing:
 
 ```sh
