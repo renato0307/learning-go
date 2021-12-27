@@ -285,7 +285,7 @@ func postJwtDebugger(p programming.Interface) gin.HandlerFunc {
 
 ## Unit testing
 
-To check if it working correctly let's add some tests in the 
+To check if it is working correctly let's add some tests in the 
 `programming/programming_test.go` file, as we did before.
 
 We use the mocks from the Library to test the happy flow and the error
