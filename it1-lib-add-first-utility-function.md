@@ -95,7 +95,7 @@ You can solve this by opening the `go.mod` file and press `Run go mod tidy`.
 ![High level overview](/assets/lib-add-first-utility-function-1.png)
 
 ----
-__GO-EXTRA: Comments__
+🕵️‍♀️ __GO-EXTRA: Comments__ 
 
 The `godoc` tool processes Go source files to extract documentation about the
 contents of the package.

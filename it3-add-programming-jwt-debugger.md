@@ -53,7 +53,7 @@ and the payload
 ```
 The goal of this feature is to get the header and payload from a compacted JWT.
 
-__CHALLENGE__: try to implement this by yourself before proceeding.
+🏋️‍♀️ __CHALLENGE__: try to implement this by yourself before proceeding.
 
 ## Changes in the Library
 
@@ -199,7 +199,7 @@ git push origin v0.0.3
 
 ## Changes in the API
 
-__CHALLENGE__: try to implement this by yourself before proceeding.
+🏋️‍♀️ __CHALLENGE__: try to implement this by yourself before proceeding.
 
 We are going to add support to execute the JWT debugger when sending a `POST`
 request to `/programming/jwt`. The JWT will be sent in the body of the request.
