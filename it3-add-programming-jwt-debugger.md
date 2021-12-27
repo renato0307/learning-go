@@ -251,7 +251,7 @@ func SetRouterGroup(p programming.Interface, base *gin.RouterGroup) *gin.RouterG
 }
 ```
 
-THen implement the `postJwtDebugger` function:
+Then implement the `postJwtDebugger` function:
 
 ```go
 // postJwtDebugger handles the JWT debug request.
