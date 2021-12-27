@@ -74,7 +74,7 @@ func postUuid() gin.HandlerFunc {
 		withoutHyphens := noHyphensParamValue == "true"
 
 		uuid := programming.NewUuid(withoutHyphens)
-		output := postUuidOutput{uuid: uuid}
+		output := postUuidOutput{UUID: uuid}
 
 		c.JSON(http.StatusOK, output)
 	}
@@ -103,6 +103,36 @@ parameters
 After generating the UUID by calling the `NewUuid` function from the 
 `programming` package imported the library, the `c.JSON` serializes the return
 status and the output to the HTTP response.
+
+----
+🕵️‍♀️ __GO-EXTRA: Struct Fields Meta-data & JSON__
+
+A struct in Go allows adding meta-data to its fields.
+
+The format for attaching meta-data is:
+
+```go
+type strutName struct {
+   fieldName type `key:value key2:value2 key3:value3`
+}
+```
+
+A common use for the meta-data is for JSON operations, like `Marshal`.
+
+We are using this for the output structures, specifying the name of the field
+when converting from and to JSON. In the example bellow, the `UUID` field will
+have the `uuid` name when transformed to and from JSON.
+
+```go
+type postUuidOutput struct {
+	UUID string `json:"uuid"`
+}
+```
+
+For more information about JSON and Go check
+[this blog post](https://go.dev/blog/json).
+
+----
 
 ## Changes on the main.go
 
