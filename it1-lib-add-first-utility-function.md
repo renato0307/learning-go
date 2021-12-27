@@ -6,7 +6,7 @@ our utilities are going to be organized into categories, like Programming
 or Finance.
 
 As the number of categories and utilities will grow with time, a proper project
-structure is needed to ensure we keep the code organized and easily to 
+structure is needed to ensure we keep the code organized and easy to 
 maintain.
 
 The typical project layout of a Go project can be found
