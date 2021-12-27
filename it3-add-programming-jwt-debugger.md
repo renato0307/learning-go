@@ -53,9 +53,9 @@ and the payload
 ```
 The goal of this feature is to get the header and payload from a compacted JWT.
 
-🏋️‍♀️ __CHALLENGE__: try to implement this by yourself before proceeding.
-
 ## Changes in the Library
+
+🏋️‍♀️ __CHALLENGE__: try to implement this by yourself before proceeding.
 
 Go to the Library folder.
 
