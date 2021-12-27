@@ -82,16 +82,13 @@ touch finance/interface.go
 ```
 
 The `finance/interface.go` is were we define the interface for the finance
-a package:
+package:
 
 ```go
 package finance
 
 type Interface interface {
-	ConvertCurrency(
-		from string,
-		to string,
-		amount float64) (float64, error)
+	ConvertCurrency(from string, to string, amount float64) (float64, error)
 }
 
 type FinanceFunctions struct {
@@ -104,7 +101,7 @@ We can see here a difference from the other cases: the functions struct contains
 fields. 
 
 With this difference we are saying: to execute finance functions you need an 
-API url and and API key. If several functions are to be executed, we can use
+API URL and and API key. If several functions are to be defined, we can use
 the same instance of the struct and we don't need to repeat those common
 parameters on all the other functions.
 
@@ -161,7 +158,7 @@ type fsaApiResponseDetails struct {
 	WhenLastUpdateUtc    string `json:"up"`
 }
 
-// NewFinanceFunctions create a new FinanceFunctions instance. If the apiUrl is
+// NewFinanceFunctions creates a new FinanceFunctions instance. If the apiUrl is
 // empty a default value will be set.
 func NewFinanceFunctions(apiUrl, apiKey string) FinanceFunctions {
 	ff := FinanceFunctions{
@@ -248,7 +245,7 @@ mockery -all -inpkg -case snake
 
 ## The unit tests for NewFinanceFunctions
 
-The units tests for the NewFinanceFunctions function is going to be pretty
+The units tests for the `NewFinanceFunctions` function is going to be pretty
 straightforward:
 
 ```go
@@ -281,7 +278,7 @@ previously did.
 As we are calling an external API, we need to mock it out to be able to
 test all the necessary scenarios.
 
-To helps doing that we'll use the 
+To help doing that we'll use the 
 [net/http/httptest](https://pkg.go.dev/net/http/httptest) package.
 
 This package provides utilities for HTTP testing, namely to simulate a server.
@@ -318,6 +315,7 @@ func TestConvertCurrency(t *testing.T) {
 			"status": true
 		}
 	`
+
 	svr := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, expected)
 	}))
