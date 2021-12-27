@@ -129,32 +129,6 @@ We define the API version by using *URI Versioning* (the `/v1` part).
 
 The final result is `/v1/programming/uuid` route being added to the Gin engine.
 
-## Manual testing
-
-Go to the command line and run
-
-```sh
-go run main.go
-```
-
-In another terminal use `httpie` to execute the call:
-
-```sh
-http POST localhost:8080/v1/programming/uuid
-```
-
-The result should be similar to:
-
-```
-HTTP/1.1 200 OK
-Content-Length: 47
-Content-Type: application/json; charset=utf-8
-Date: Wed, 21 Dec 2021 21:02:37 GMT
-
-{
-    "uuid": "2ea3a39b-51a1-4fe3-80b0-9d9a33d176be"
-}
-```
 
 ## Unit testing
 
@@ -202,7 +176,7 @@ In the `assert`block:
 
 After we also need to add a test for the case _without hyphens_.
 
-__CHALLENGE__: don't scroll down and try to do this test by yourself!
+🏋️‍♀️ __CHALLENGE__: don't scroll down and try to do this test by yourself!
 
 The final contents of the `programming_test.go` file is:
 
@@ -265,5 +239,32 @@ func TestPostUuidWithNoHyphen(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Len(t, output.UUID, 32)
 	assert.NotContains(t, output.UUID, "-")
+}
+```
+
+## Manual testing
+
+Go to the command line and run
+
+```sh
+go run main.go
+```
+
+In another terminal use `httpie` to execute the call:
+
+```sh
+http POST localhost:8080/v1/programming/uuid
+```
+
+The result should be similar to:
+
+```
+HTTP/1.1 200 OK
+Content-Length: 47
+Content-Type: application/json; charset=utf-8
+Date: Wed, 21 Dec 2021 21:02:37 GMT
+
+{
+    "uuid": "2ea3a39b-51a1-4fe3-80b0-9d9a33d176be"
 }
 ```
