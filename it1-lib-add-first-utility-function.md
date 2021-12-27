@@ -94,7 +94,27 @@ You can solve this by opening the `go.mod` file and press `Run go mod tidy`.
 
 ![High level overview](/assets/lib-add-first-utility-function-1.png)
 
+----
+__GO-EXTRA: Comments__
+
+The `godoc` tool processes Go source files to extract documentation about the
+contents of the package.
+
+For functions the first sentence should be a one-sentence summary that starts
+with the name being declared.
+
+For example:
+
+```go
+// Compile parses a regular expression and returns, if successful,
+// a Regexp that can be used to match against text.
+func Compile(str string) (*Regexp, error) {
+```
+
+----
+
 The next step is to add the tests (you can do it first if you prefer TDD...):
+
 
 ```go
 package programming
