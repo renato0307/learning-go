@@ -15,6 +15,7 @@ __Are you ready?__
 1. [What are we going to build?](intro-what-are-we-going-to-build.md)
 1. [Prepare the development environment](intro-prepare-dev-env.md)
 1. [Please do a Go tour](intro-go-tour.md)
+1. [What you will learn about Go (checklist)](intro-go-checklist.md)
 
 ## Iteration 1 - library and API skeleton
 
@@ -36,7 +37,7 @@ __Are you ready?__
 1. [Add finance/currency-converter to the API](it3-add-finance-currency-converter-api.md)
 
 ## Iteration 4 - deploying to kubernetes
-1. Create a local kubernetes cluster
+1. [Create a local kubernetes cluster](it4-create-local-k8s.md)
 1. Create a Helm chart
 1. Use [fluxcd](https://fluxcd.io) to deploy
 
