@@ -41,12 +41,61 @@ This page compares what we are going to cover when compared with the Go Tour.
 
 ### More types: structs, slices, and maps.
 
-TODO
+| Topic | Covered?|
+|-------|----------|
+|Pointers|-|
+|Structs|✅|
+|Struct Fields|✅|
+|Pointers to structs|✅|
+|Struct Literals|✅|
+|Arrays|✅|
+|Slices|-|
+|Slices are like references to arrays|-|
+|Slice literals|-|
+|Slice length and capacity|-|
+|Nil slices|-|
+|Creating a slice with make|-|
+|Slices of slices|-|
+|Appending to a slice|-|
+|Range|-|
+|Maps|✅|
+|Map literals|-|
+|Mutating Maps|-|
+|Function values|✅|
+|Function closures|✅|
 
 ## Methods and interfaces
 
-TODO
+| Topic | Covered?|
+|-------|---------|
+|Methods|✅|
+|Methods are functions|✅|
+|Pointer receivers|✅|
+|Pointers and functions|-|
+|Methods and pointer indirection|-|
+|Choosing a value or pointer receiver|-|
+|Interfaces|✅|
+|Interfaces are implemented implicitly|✅|
+|Interface values|✅|
+|Interface values with nil underlying values|-|
+|Nil interface values|-|
+|The empty interface|-|
+|Type assertions|-|
+|Type switches|-|
+|Stringers|-|
+|Errors|✅|
+|Readers|✅|
+|Images|✅|
 
 ## Concurrency
 
-TODO
+| Topic | Covered?|
+|-------|---------|
+|Goroutines|-|
+|Channels|-|
+|Buffered Channels|-|
+|Range and Close|-|
+|Select|-|
+|Default Selection|-|
+|sync.Mutex|-|
+
