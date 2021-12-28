@@ -194,7 +194,7 @@ The code is pretty explanatory so let's proceed to the tests.
 
 ## The unit tests for main.go
 
-As we added some logic to the `main.go`file, let's add some tests:
+As we added some logic to the `main.go` file, let's add some tests:
 
 ```sh
 touch main_test.go
@@ -234,7 +234,7 @@ func TestGetRequiredEnvWithMissingEnvironment(t *testing.T) {
 }
 ```
 
-The I want to highlight the usage of the `assert.Panics` function to check if
+I want to highlight the usage of the `assert.Panics` function to check if
 the `getRequiredEnv` panics when an environment variable is missing.
 
 ## The unit tests for finance/finance.go
