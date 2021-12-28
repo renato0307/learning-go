@@ -472,6 +472,6 @@ Commit and push everything. Create a new tag.
 git add .
 git commit -m "feat: add finance/currconv"
 git push
-git tag -a v0.0.3 -m "v0.0.3"
-git push origin v0.0.3
+git tag -a v0.0.4 -m "v0.0.4"
+git push origin v0.0.4
 ```
