@@ -13,7 +13,6 @@ This page compares what we are going to cover when compared with the Go Tour.
 |Exported names|✅|
 |Functions|✅|
 |Multiple results|✅|
-|Multiple results|✅|
 |Named return values| - |
 |Variables|✅|
 |Variables with initializers|-|
@@ -42,10 +41,12 @@ This page compares what we are going to cover when compared with the Go Tour.
 
 ### More types: structs, slices, and maps.
 
+TODO
+
 ## Methods and interfaces
 
-TBD
+TODO
 
 ## Concurrency
 
-TBD
+TODO
