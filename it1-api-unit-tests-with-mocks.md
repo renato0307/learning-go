@@ -24,7 +24,7 @@ are testing the API functions but we did not _mock_ the library.
 This is OK as the current library is code is very simple, without "awkward" 
 dependencies.
 
-Nevertheless, calling if calling the library would require, for example, the
+Nevertheless, if calling the library would require, for example, the
 setup of a database or an external system, it could be harder to implement unit
 tests and I would prefer to mock the library.
 
