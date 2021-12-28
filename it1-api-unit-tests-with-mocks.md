@@ -93,7 +93,7 @@ type ProgrammingFunctions struct {
 ```
 
 Next we need to change the `NewUuid` implementation to bind it to the 
-`ProgrammingFunctions` function. This makes this structure implement the
+`ProgrammingFunctions` struct. This makes this structure implement the
 interface.
 
 To make the struct implement the interface, we need to put it as `receiver` of 
