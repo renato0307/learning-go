@@ -92,9 +92,24 @@ type ProgrammingFunctions struct {
 }
 ```
 
-Next we need to change the `NewUuid` implementation. Currently the function does
-not have a `receiver`, which must be added so we can use polymorphism to mock
-the interface. The `ProgrammingFunctions` struct will be used for that.
+Next we need to change the `NewUuid` implementation to bind it to the 
+`ProgrammingFunctions` function. This makes this structure implement the
+interface.
+
+To make the struct implement the interface, we need to put it as `receiver` of 
+the function.
+
+Function definition without `receiver`:
+
+```go
+func NewUuid(withoutHyphen bool) string
+```
+
+The function with `receiver` is:
+
+```go
+func (pf *ProgrammingFunctions) NewUuid(withoutHyphen bool) string
+```
 
 This is the new code in the `uuid.go` file:
 
