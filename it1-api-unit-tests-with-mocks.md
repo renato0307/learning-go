@@ -305,7 +305,7 @@ func postUuid(p programming.Interface) gin.HandlerFunc {
 }
 ```
 
-Let me highlight the changes:
+Let me highlight the changes (check the image below):
 
 1. The `SetRouterGroup` methods gets receives the interface for the library
 package
