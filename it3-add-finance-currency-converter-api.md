@@ -476,3 +476,15 @@ Date: Tue, 28 Dec 2021 06:47:24 GMT
     "to": "USD"
 }
 ```
+
+## Wrapping up the API
+
+Commit and push everything. Create a new tag.
+
+```sh
+git add .
+git commit -m "feat: add finance/currconv"
+git push
+git tag -a v0.0.3 -m "v0.0.3"
+git push origin v0.0.3
+```
