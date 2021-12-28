@@ -182,7 +182,7 @@ type ProgrammingFunctions struct {
 We also need to generate the mocks:
 
 ```sh
-mockery -all -inpkg -case snake
+mockery --all --inpackage --case snake
 ```
 
 After this is done, commit and push the changes to GitHub.

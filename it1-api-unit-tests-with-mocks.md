@@ -166,7 +166,7 @@ Golang.
 After execute the following command to generate the stubs:
 
 ```sh
-mockery -all -inpkg -case snake
+mockery --all --inpackage --case snake
 ```
 
 This will generate a new file named `mock_interface.go` in the `programming`

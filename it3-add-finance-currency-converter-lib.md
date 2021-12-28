@@ -240,7 +240,7 @@ func (ff *FinanceFunctions) callLastCandleApi(from, to string) (fsaApiResponse, 
 To complete the implementation we need to generate the mocks for the interface.
 
 ```sh
-mockery -all -inpkg -case snake
+mockery --all --inpackage --case snake
 ```
 
 ## The unit tests for NewFinanceFunctions
