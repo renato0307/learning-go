@@ -38,8 +38,8 @@ __Are you ready?__
 
 ## Iteration 4 - deploying to kubernetes
 1. [Create a local kubernetes cluster](it4-create-local-k8s.md)
-1. Create a Helm chart
-1. Use [fluxcd](https://fluxcd.io) to deploy
+1. [Create a Helm chart for the API](it4-create-helm-chart-api.md)
+1. Use [fluxcd](https://fluxcd.io) to deploy the API
 
 ## Next Iterations - WIP
 1. API error handling
@@ -47,3 +47,5 @@ __Are you ready?__
 1. Testing deep dive (coverage, etc.)
 1. Structured logging
 1. Go tools (gofmt, go mod, ...)
+1. Integration tests
+1. Monitoring & alarms
