@@ -36,11 +36,11 @@ The output should be similar to:
 ```
 Creating cluster "kind" ...
  ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
- ✓ Preparing nodes 📦  
- ✓ Writing configuration 📜 
- ✓ Starting control-plane 🕹️ 
- ✓ Installing CNI 🔌 
- ✓ Installing StorageClass 💾 
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
 Set kubectl context to "kind-kind"
 You can now use your cluster with:
 
@@ -48,3 +48,10 @@ kubectl cluster-info --context kind-kind
 
 Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start
 ```
+
+Additionally we would also need to have the service of type
+[LoadBalancer](https://kubernetes.io/docs/tasks/access-application-clustercreate-external-load-balancer/) working on the 
+cluster.
+
+Follow the instructions available at https://kind.sigs.k8s.io/docs/user/loadbalancer.
+
