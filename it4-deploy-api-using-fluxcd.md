@@ -338,9 +338,9 @@ in my personal Docker Hub repository:
 
 ```ssh
 flux create image repository learning-go-api \
---image=renato0307/learning-go-api \
---interval=1m \
---export > ./flux/image-repository.yaml
+  --image=renato0307/learning-go-api \
+  --interval=1m \
+  --export > ./flux/image-repository.yaml
 ```
 
 The second one generates an `ImagePolicy` resource so Flux checks for image
@@ -348,9 +348,9 @@ with versions >=0.0.1 and <1.0.0:
 
 ```ssh
 flux create image policy learning-go-api \
---image-ref=learning-go-api \
---select-semver='>=0.0.1 <1.0.0' \
---export > ./flux/image-policy.yaml
+  --image-ref=learning-go-api \
+  --select-semver='>=0.0.1 <1.0.0' \
+  --export > ./flux/image-policy.yaml
 ```
 
 The last one generates an `ImageUpdateAutomation` resource which sets the 
@@ -358,14 +358,14 @@ GitHub repository settings that allow to update the Helm releases.
 
 ```ssh
 flux create image update flux-system \
---git-repo-ref=flux-system \
---git-repo-path=./flux \
---checkout-branch=main \
---push-branch=main \
---author-name=fluxcdbot \
---author-email=fluxcdbot@users.noreply.github.com \
---commit-template="{{range .Updated.Images}}{{println .}}{{end}}" \
---export > ./flux/image-update-automation.yaml
+  --git-repo-ref=flux-system \
+  --git-repo-path=./flux \
+  --checkout-branch=main \
+  --push-branch=main \
+  --author-name=fluxcdbot \
+  --author-email=fluxcdbot@users.noreply.github.com \
+  --commit-template="{{range .Updated.Images}}{{println .}}{{end}}" \
+  --export > ./flux/image-update-automation.yaml
 ```
 
 ⚠ This will effectively change files in the GitHub repository.
