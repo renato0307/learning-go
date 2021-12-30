@@ -42,7 +42,7 @@ __Are you ready?__
 1. [Deploy the API using Flux](it4-deploy-api-using-fluxcd.md)
 
 ## Iteration 5 - code improvements
-1. Change API file structure
+1. [Change API file structure](it5-change-api-file-structure.md)
 1. API error handling
 1. Structured logging
 
