@@ -223,7 +223,7 @@ The logs are:
 [GIN] 2021/12/28 - 20:27:14 | 200 |       33.88µs |      10.244.0.1 | GET      "/"
 [GIN] 2021/12/28 - 20:27:14 | 200 |        24.8µs |      10.244.0.1 | GET      "/"
 ```
-## Service
+## Testing the deployed API
 
 The service should also be set up, allowing us to access the API.
 
