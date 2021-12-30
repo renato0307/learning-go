@@ -20,9 +20,9 @@ __Are you ready?__
 ## Iteration 1 - library and API skeleton
 
 1. [Start the project for the Library](it1-lib-start-the-project.md)
-1. [Add the first utility function to the Library](it1-lib-add-first-utility-function.md)
+1. [Add programming/uuid generator function the Library](it1-lib-add-first-utility-function.md)
 1. [Start the project for the API](it1-api-start-the-project.md)
-1. [Add the first utility function to the API](it1-api-add-first-utility-function.md)
+1. [Add programming/uuid generator function to the API](it1-api-add-first-utility-function.md)
 1. [Unit tests in the API using mocks](it1-api-unit-tests-with-mocks.md)
 
 ## Iteration 2 - basic CI/CD
@@ -41,11 +41,21 @@ __Are you ready?__
 1. [Create a Helm chart for the API](it4-create-helm-chart-api.md)
 1. [Deploy the API using Flux](it4-deploy-api-using-fluxcd.md)
 
-## Next Iterations - WIP
+## Iteration 5 - code improvements
+1. Change API file structure
 1. API error handling
+1. Structured logging
+
+## Iteration 6 - implementing the CLI
+1. Start the project
+1. Add programming/uuid to the CLI
+1. Add programming/jwtdebugger to the CLI
+1. Add finance/currency-converter to the CLI
+1. Basic CI/CD for the CLI
+
+## Next Iterations - WIP
 1. Authentication & Authorization
 1. Testing deep dive (coverage, etc.)
-1. Structured logging
-1. Go tools (gofmt, go mod, ...)
 1. Integration tests
 1. Monitoring & alarms
+1. Go tools (gofmt, go mod, ...)

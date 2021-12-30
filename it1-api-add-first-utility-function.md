@@ -1,4 +1,4 @@
-# Adding the first utility function to the API
+# Add UUID generator function to the API
 
 For the same reasons the API will be organized using a similar approach of 
 the library.

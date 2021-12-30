@@ -1,4 +1,4 @@
-# Adding the first utility function to the Library
+# Adding the UUID generator function to the Library
 
 As described in the 
 [What are we going to build?](intro-what-are-we-going-to-build.md) section,
