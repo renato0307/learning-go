@@ -442,7 +442,7 @@ git push origin v0.0.4
 Wait for a couple of minutes for the build image GitHub action to generate and
 publish the images in Docker Hub.
 
-Running the following command
+Running the following command:
 
 ```sh
 kubectl -n flux-system get imagepolicies.image.toolkit.fluxcd.io
@@ -455,7 +455,7 @@ NAME              LATESTIMAGE
 learning-go-api   renato0307/learning-go-api:0.0.4
 ```
 
-If we list the pods
+If we list the pods:
 
 ```sh
 kubectl -n learning-go-api get po
