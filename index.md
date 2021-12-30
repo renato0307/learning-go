@@ -39,7 +39,7 @@ __Are you ready?__
 ## Iteration 4 - deploying to kubernetes
 1. [Create a local kubernetes cluster](it4-create-local-k8s.md)
 1. [Create a Helm chart for the API](it4-create-helm-chart-api.md)
-1. Use [fluxcd](https://fluxcd.io) to deploy the API
+1. [Deploy the API using Flux](it4-deploy-api-using-fluxcd.md)
 
 ## Next Iterations - WIP
 1. API error handling
