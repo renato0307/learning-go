@@ -135,12 +135,13 @@ Run the tests:
 ```sh
 go test ./...
 ```
+
 Commit and push everything. Create a new tag.
 
 ```sh
 git add .
 git commit -m "refactor: one file per functionality"
 git push
-git tag -a v0.0.8 -m "v0.0.8"
-git push origin v0.0.8
+git tag -a v0.0.5 -m "v0.0.5"
+git push origin v0.0.5
 ```
