@@ -110,7 +110,7 @@ Start the Gin server:
 CURRCONV_API_KEY=apikeyvalue GIN_MODE=release go run main.go
 ```
 
-Then use `httpie` do send a currency coverter request:
+Then use `httpie` do send a currency convert request:
 
 ```sh
 http "localhost:8080/v1/finance/currconv?from=EUR&to=USD"
