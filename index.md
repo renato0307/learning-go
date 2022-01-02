@@ -46,7 +46,12 @@ __Are you ready?__
 1. API error handling
 1. Structured logging
 
-## Iteration 6 - implementing the CLI
+## Iteration 6 - authentication & authorization
+1. Build an simple OAuth server with Client Credentials Grant Flow
+1. Add authentication to the API
+1. Add authorization to the API
+
+## Iteration 7 - implementing the CLI
 1. Start the project
 1. Add programming/uuid to the CLI
 1. Add programming/jwtdebugger to the CLI
@@ -54,8 +59,7 @@ __Are you ready?__
 1. Basic CI/CD for the CLI
 
 ## Next Iterations - WIP
-1. Authentication & Authorization
-1. Testing deep dive (coverage, etc.)
-1. Integration tests
 1. Monitoring & alarms
+1. Envoy / Service Mesh
+1. Testing deep dive (coverage, integration, end-to-end etc.)
 1. Go tools (gofmt, go mod, ...)
