@@ -145,7 +145,37 @@ func AssertIsValid(t *testing.T, jsonData []byte) { // ne
 }
 ```
 
-If the `currconv_test.go` we can now use the `AssertIsValid` function to check
+The `AssertIsValid` function also needs to be tested. Add the following to the
+`apierror_test.go` file:
+
+```go
+func TestAssertIsValid(t *testing.T) {
+	// arrange
+	err := New("this is a fake error message")
+	data, _ := json.Marshal(err)
+	tt := testing.T{}
+
+	// act
+	AssertIsValid(&tt, data)
+
+	// assert
+	assert.False(t, tt.Failed())
+}
+
+func TestAssertIsValidWithInvalidJson(t *testing.T) {
+	// arrange
+	data := []byte("this is an invalid json")
+	tt := testing.T{}
+
+	// act
+	AssertIsValid(&tt, data)
+
+	// assert
+	assert.True(t, tt.Failed())
+}
+```
+
+In the `currconv_test.go` we can now use the `AssertIsValid` function to check
 the return.
 
 For example:
