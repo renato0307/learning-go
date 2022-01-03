@@ -48,7 +48,7 @@ __Are you ready?__
 1. [Make Gin use structured logs](it5-gin-structured-logging.md)
 
 ## Iteration 6 - authentication & authorization
-1. Configure Amazon Cognito as an OAuth2 server
+1. [Configure Amazon Cognito as an OAuth2 server](it6-create-cognito-user-pool.md)
 1. Add authentication to the API
 1. Add authorization to the API
 
