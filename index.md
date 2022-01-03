@@ -61,6 +61,5 @@ __Are you ready?__
 
 ## Next Iterations - WIP
 1. Monitoring & alarms
-1. Envoy / Service Mesh
-1. Testing deep dive (coverage, integration, end-to-end etc.)
+1. Increase testing coverage
 1. Go tools (gofmt, go mod, ...)
