@@ -1,6 +1,6 @@
 # Make Gin use structured logs
 
-After adding structure logs to the API, if we start Gin and make a request, we
+After adding structured logs to the API, if we start Gin and make a request, we
 will see mixed log formats. Our new log entries have a JSON format but the
 default log entries from Gin are still plain text:
 
@@ -111,7 +111,7 @@ func Default() *Engine {
 }
 ```
 
-So to do a similar setup we need to use our new logger middleware but still add
+So, to do a similar setup we need to use our new logger middleware but still add
 the `Recovery` one added by the default engine.
 
 The complete code is available below:
