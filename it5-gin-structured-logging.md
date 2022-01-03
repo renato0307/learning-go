@@ -38,8 +38,16 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-// StructuredLogger logs a gin HTTP request in JSON format
-func StructuredLogger() gin.HandlerFunc {
+
+// DefaultStructuredLogger logs a gin HTTP request in JSON format. Uses the
+// default logger from rs/zerolog.
+func DefaultStructuredLogger() gin.HandlerFunc {
+	return StructuredLogger(&log.Logger)
+}
+
+// StructuredLogger logs a gin HTTP request in JSON format. Allows to set the
+// logger for testing purposes.
+func StructuredLogger(logger *zerolog.Logger) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		start := time.Now() // Start timer
@@ -51,6 +59,7 @@ func StructuredLogger() gin.HandlerFunc {
 
 		// Fill the params
 		param := gin.LogFormatterParams{}
+
 		param.TimeStamp = time.Now() // Stop timer
 		param.Latency = param.TimeStamp.Sub(start)
 		if param.Latency > time.Minute {
@@ -70,9 +79,9 @@ func StructuredLogger() gin.HandlerFunc {
 		// Log using the params
 		var logEvent *zerolog.Event
 		if c.Writer.Status() >= 500 {
-			logEvent = log.Error()
+			logEvent = logger.Error()
 		} else {
-			logEvent = log.Info()
+			logEvent = logger.Info()
 		}
 
 		logEvent.Str("client_id", param.ClientIP).
@@ -134,9 +143,9 @@ import (
 func main() {
 	// Initialize Gin
 	gin.SetMode(gin.ReleaseMode)
-	r := gin.New()                       // empty engine
-	r.Use(middleware.StructuredLogger()) // adds our new middleware
-	r.Use(gin.Recovery())                // adds the default recovery middleware
+	r := gin.New()                              // empty engine
+	r.Use(middleware.DefaultStructuredLogger()) // adds our new middleware
+	r.Use(gin.Recovery())                       // adds the default recovery middleware
 
 	// Default route
 	r.GET("/", func(c *gin.Context) {
@@ -170,6 +179,68 @@ func getRequiredEnv(key string) string {
 	return value
 }
 ```
+
+## Unit testing
+
+The contents for the `middleware/logger_test.go` file are:
+
+```go
+package middleware
+
+import (
+	"bytes"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
+	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog"
+	"github.com/stretchr/testify/assert"
+)
+
+func PerformRequest(r http.Handler, method, path string) *httptest.ResponseRecorder {
+	req := httptest.NewRequest(method, path, nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+	return w
+}
+
+func TestStructuredLogger(t *testing.T) {
+	// arrange - create a new logger writing to a buffer
+	buffer := new(bytes.Buffer)
+	var memLogger = zerolog.New(buffer).With().Timestamp().Logger()
+
+	// arrange - init Gin to use the structured logger middleware
+	r := gin.New()
+	r.Use(StructuredLogger(&memLogger))
+	r.Use(gin.Recovery())
+
+	// arrange - set the routes
+	r.GET("/example", func(c *gin.Context) {})
+	r.GET("/force500", func(c *gin.Context) { panic("forced panic") })
+
+	// act & assert
+	PerformRequest(r, "GET", "/example?a=100")
+	assert.Contains(t, buffer.String(), "200")
+	assert.Contains(t, buffer.String(), "GET")
+	assert.Contains(t, buffer.String(), "/example")
+	assert.Contains(t, buffer.String(), "a=100")
+
+	buffer.Reset()
+	PerformRequest(r, "GET", "/notfound")
+	assert.Contains(t, buffer.String(), "404")
+	assert.Contains(t, buffer.String(), "GET")
+	assert.Contains(t, buffer.String(), "/notfound")
+
+	buffer.Reset()
+	PerformRequest(r, "GET", "/force500")
+	assert.Contains(t, buffer.String(), "500")
+	assert.Contains(t, buffer.String(), "GET")
+	assert.Contains(t, buffer.String(), "/force500")
+	assert.Contains(t, buffer.String(), "error")
+}
+```
+
 ## Manual testing
 
 First start Gin:
