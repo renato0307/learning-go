@@ -47,7 +47,7 @@ __Are you ready?__
 1. [Add logs to the API](it5-add-logs-api.md)
 
 ## Iteration 6 - authentication & authorization
-1. Build an simple OAuth server with Client Credentials Grant Flow
+1. Configure Amazon Cognito as an OAuth2 server
 1. Add authentication to the API
 1. Add authorization to the API
 
