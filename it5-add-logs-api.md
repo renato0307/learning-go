@@ -1,4 +1,4 @@
-# Add logs to the API
+# Add structured logs to the API
 
 One of the problems of the current API implementation is the lack of logs,
 besides the ones already added out-of-the-box by Gin.
@@ -13,6 +13,8 @@ The standard logging library does not support structured logging by default,
 so we are going to use one of the external loggers supporting it.
 
 Our pick is [rs/zerolog](https://github.com/rs/zerolog).
+
+## Basic logging
 
 Let's start by a simple example in the `finance/finance.go`:
 
@@ -133,6 +135,7 @@ statements.
 
 ## Wrap up
 
+Commit and push everything. Create a new tag.
 
 ```sh
 git add .

@@ -44,7 +44,8 @@ __Are you ready?__
 ## Iteration 5 - code improvements
 1. [Change API file structure](it5-change-api-file-structure.md)
 1. [Improve API error handling](it5-improve-api-error-handling.md)
-1. [Add logs to the API](it5-add-logs-api.md)
+1. [Add structured logs to the API](it5-add-logs-api.md)
+1. [Make Gin use structured logs](it5-gin-structured-logging.md)
 
 ## Iteration 6 - authentication & authorization
 1. Configure Amazon Cognito as an OAuth2 server
