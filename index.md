@@ -49,7 +49,7 @@ __Are you ready?__
 
 ## Iteration 6 - authentication & authorization
 1. [Configure Amazon Cognito as an OAuth2 server](it6-create-cognito-user-pool.md)
-1. Add authentication to the API
+1. [Add authentication to the API](it6-add-authentication-api.md)
 1. Add authorization to the API
 
 ## Iteration 7 - implementing the CLI
