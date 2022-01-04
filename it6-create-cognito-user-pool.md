@@ -93,6 +93,25 @@ aws cognito-idp create-resource-server \
     --region $AWS_REGION
 ```
 
+We will want to have authorization claims inside our JWTs. These claims are
+going to be used to check if the user has permissions access each of the API
+operations (e.g. using the currency converter).
+
+To achieve that we need to define resource server scopes. That can be achieved
+by updating the resource server:
+
+```sh
+aws cognito-idp update-resource-server \
+    --user-pool-id $POOL_ID \
+    --identifier https://$RESOURCE_SERVER_NAME.com \
+    --name $RESOURCE_SERVER_NAME \
+    --scopes ScopeName="all",ScopeDescription="Access to all resources" \
+    --profile $AWS_PROFILE \
+    --region $AWS_REGION
+```
+
+In this case, and for now, we are creating only one scope.
+
 ## Create an App Client
 
 From the AWS documentation:
@@ -110,6 +129,9 @@ aws cognito-idp create-user-pool-client \
     --client-name learning-go-api-client-1 \
     --generate-secret \
     --explicit-auth-flows "ALLOW_USER_PASSWORD_AUTH" "ALLOW_ADMIN_USER_PASSWORD_AUTH" "ALLOW_REFRESH_TOKEN_AUTH" \
+    --allowed-o-auth-flows "client_credentials" \
+    --supported-identity-providers "COGNITO" \
+    --allowed-o-auth-flows-user-pool-client \
     --profile $AWS_PROFILE \
     --region $AWS_REGION
 ```
@@ -133,18 +155,71 @@ export CLIENT_SECRET=`aws cognito-idp describe-user-pool-client \
     --region $AWS_REGION | jq -r ".UserPoolClient.ClientSecret"`
 ```
 
-## Generate a JSON Web Token (JWT)
+To allow the client to call the APIs, we need to associate the resource server
+scopes to the client. We could have done this while creating the user, but I
+want to show you the command to be used when you need to add more.
 
 ```sh
-export AUTH_TOKEN=`echo $CLIENT_ID:$CLIENT_SECRET | base64`
+aws cognito-idp update-user-pool-client \
+    --user-pool-id $POOL_ID  \
+    --client-id $CLIENT_ID \
+    --explicit-auth-flows "ALLOW_USER_PASSWORD_AUTH" "ALLOW_ADMIN_USER_PASSWORD_AUTH" "ALLOW_REFRESH_TOKEN_AUTH" \
+    --supported-identity-providers "COGNITO" \
+    --allowed-o-auth-flows "client_credentials" \
+    --allowed-o-auth-flows-user-pool-client \
+    --allowed-o-auth-scopes "https://learning-go-api.com/all" \ # you can add more scopes here
+    --profile $AWS_PROFILE \
+    --region $AWS_REGION
+```
+
+
+## Generate a JSON Web Token (JWT)
+
+Generate the authentication header to use:
+
+```sh
+export AUTH_TOKEN=`echo -n $CLIENT_ID:$CLIENT_SECRET | base64`
 export AUTH_HEADER="Basic $AUTH_TOKEN"
 ```
 
-```sh
-export TOKEN_ENDPOINT=https://$DOMAIN.auth.$AWS_REGION.amazoncognito.com
-```
+Define the endpoint used to generate the tokens:
 
 ```sh
-http POST $TOKEN_ENDPOINT/oauth2/token Authorization:$AUTH_HEADER
+export TOKEN_ENDPOINT=https://$DOMAIN.auth.$AWS_REGION.amazoncognito.com/oauth2/token
 ```
 
+Call the endpoint using `httpie` to get the token:
+
+```sh
+http POST $TOKEN_ENDPOINT  \
+    Authorization:$AUTH_HEADER \
+    Content-Type:application/x-www-form-urlencoded \
+    --raw "grant_type=client_credentials&scope=https://learning-go-api.com/all"
+```
+
+The result should be similar to:
+
+```json
+HTTP/1.1 200 OK
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Connection: keep-alive
+Content-Type: application/json;charset=UTF-8
+Date: Tue, 04 Jan 2022 07:21:45 GMT
+Expires: 0
+Pragma: no-cache
+Server: Server
+Set-Cookie: XSRF-TOKEN=5f8f0345-139a-4e3c-bbce-eb12dabb300c; Path=/; Secure; HttpOnly; SameSite=Lax
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+Transfer-Encoding: chunked
+X-Application-Context: application:prod:8443
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+x-amz-cognito-request-id: 22f9a72b-a3bc-4d37-adf7-5d5743a44959
+
+{
+    "access_token": "eyJraWQiOiJrb1wvR2owY1JrdFwvd2hQbm9NeU00YTB5UWVRQ0p (...)",
+    "expires_in": 3600,
+    "token_type": "Bearer"
+}
+```
