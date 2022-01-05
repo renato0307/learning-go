@@ -8,6 +8,8 @@ Both will have production quality so we additionally cover:
 * CI/CD & Deployment (in a Kubernetes cluster)
 * Monitoring & Observability
 
-Start reading in the [index page](index.md).
+Start reading at https://learninggolang.com.
 
-Also available at https://renatoalvestorres.net/learning-go.
+Also available as plain Markdown at [index page](index.md).
+
+
