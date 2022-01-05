@@ -3,9 +3,9 @@
 Learn Go by building a REST API and a Command Line Interface (CLI).
 
 Both will have production quality so we additionally need to cover:
-* Security
+* Authentication & Authorization
 * Testing
-* CI/CD & Deployment (in a Kubernetes cluster)
+* CI/CD
 * Monitoring & Observability
 
 __Are you ready?__
