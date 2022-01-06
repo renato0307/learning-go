@@ -8,8 +8,385 @@ To achieve that we need:
 1. Create a Gin middleware to intercept all requests and check the JWT
 1. Verify the JWT [as described in the AWS Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html)
 
-## Create the middleware
+This is the feature more complex to implement and to explain. If you fell it is
+hard to understand please [open an issue](https://github.com/renato0307/learning-go/issues/new) 
+with your questions/difficulties.
 
-## Verify the JWT
+## Base structure of the middleware
+
+The authentication middleware will:
+
+1. Get the JWT from the Authentication HTTP header
+1. Validates the JWT
+1. If the token is valid, put the client identifier in the Gin context, in case
+any other feature requires it
+1. Abort the request and return an HTTP 401 status in case of any issue
+
+The basic structure of the middleware is:
+
+```go
+func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
+	return func(c *gin.Context) {
+        // Gets the JWT from the Authentication header
+		authHeader := c.GetHeader("Authentication")
+        if authHeader == "" {
+			log.Debug().Msg("JWT not found")
+			c.AbortWithStatusJSON(∑
+				http.StatusUnauthorized,
+				apierror.New("Not authorized"))
+			return
+		}
+
+        // Validates the JWT
+		token, err := validateToken(ac, authHeader)
+		if err != nil {
+			log.Debug().Err(err).Msg("JWT not valid")
+			c.AbortWithStatusJSON(
+				http.StatusUnauthorized,
+				apierror.New("Not authorized"))
+			return
+		}
+
+        // Put the client identifier in the Gin context
+		ci, _ := token.Get(ClientIdKey)
+		c.Set(ClientIdKey, ci)
+	}
+}
+```
+
+The code at this point is fairly simple and straightforward. I just would like
+to highlight the `AuthenticatorConfig` structure. We needed it because for the
+token validation we requires additional data, set in the environment variables
+used to run the API:
+
+1. The JSON Web Key Set (JWKS), a set of keys containing the public keys used 
+to verify any JSON Web Token (JWT) issued by the authorization server and
+signed using the RS256 signing algorithm.
+1. The identifier of the Cognito user pool, used to validate the issuer (`iss`)
+claim
+
+## Make the middleware verify the JWT
+
+The contents of the `internal/middleware/authenticator.go` file is:
+
+```go
+package middleware
+
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/lestrrat-go/jwx/jwk"
+	"github.com/lestrrat-go/jwx/jwt"
+	"github.com/renato0307/learning-go-api/internal/apierror"
+	"github.com/rs/zerolog/log"
+)
+
+type AuthenticatorConfig struct {
+	KeySetJSON []byte
+	Issuer     string
+}
+
+const (
+	TokenUseKey = "token_use"
+	ClientIdKey = "client_id"
+)
+
+func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Gets the JWT from the Authentication header
+		authHeader := c.GetHeader("Authentication")
+		if authHeader == "" {
+			log.Debug().Msg("JWT not found")
+			c.AbortWithStatusJSON(
+				http.StatusUnauthorized,
+				apierror.New("Not authorized"))
+			return
+		}
+
+		// Validates the JWT
+		token, err := validateToken(ac, authHeader)
+		if err != nil {
+			log.Debug().Err(err).Msg("JWT not valid")
+			c.AbortWithStatusJSON(
+				http.StatusUnauthorized,
+				apierror.New("Not authorized"))
+			return
+		}
+
+		// Put the client identifier in the Gin context
+		ci, _ := token.Get(ClientIdKey)
+		c.Set(ClientIdKey, ci)
+	}
+}
+
+func validateToken(ac *AuthenticatorConfig, tokenString string) (jwt.Token, error) {
+	keySet, err := jwk.Parse(ac.KeySetJSON)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse keyset: %s", err)
+	}
+
+	// Step 1: Confirm the structure of the JWT
+	// Step 2: Validate the JWT signature
+	token, err := jwt.Parse(
+		[]byte(tokenString),
+		jwt.WithKeySet(keySet),
+	)
+	if err != nil {
+		log.Debug().Err(err).Msg("error parsing the token")
+		return nil, fmt.Errorf("invalid token: %s", err)
+	}
+
+	// Step 3: Verify the claims
+	clientId, _ := token.Get(ClientIdKey)
+	err = jwt.Validate(token,
+		jwt.WithClaimValue(TokenUseKey, "access"),
+		jwt.WithClaimValue(jwt.IssuerKey, ac.Issuer),
+		jwt.WithRequiredClaim(ClientIdKey),
+		jwt.WithRequiredClaim(jwt.SubjectKey),
+		jwt.WithClaimValue(jwt.SubjectKey, clientId),
+	)
+	if err != nil {
+		log.Debug().Err(err).Msg("error validating the token")
+		return nil, fmt.Errorf("invalid token: %s", err)
+	}
+
+	return token, nil
+}
+```
+
+Let me highlight a couple of things:
+
+1. First we load the JWKS (JSON Web Key Set), which contains the key to used to
+compare the signature of the issuer to the signature in the token.
+1. The `jwt.Parse` checks the JWT structure and uses the JWKS to verify the
+signature.
+1. The `jwt.Validate` is used to validate the claim as recommended in the 
+[AWS Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html#amazon-cognito-user-pools-using-tokens-step-3)
+
+## Unit testing for the middleware
+
+The unit tests for the middleware are a bit complex because we need to generate
+keys and JSON Web Key Set. Additionally we are going to use a new technique to
+cover all the needed cases, keeping the code
+[DRYier](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
+
+```go
+package middleware
+
+import (
+	"crypto/rand"
+	"crypto/rsa"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"testing"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/lestrrat-go/jwx/jwa"
+	"github.com/lestrrat-go/jwx/jwk"
+	"github.com/lestrrat-go/jwx/jwt"
+	"github.com/renato0307/learning-go-api/internal/apierror"
+	"github.com/renato0307/learning-go-api/internal/apitesting"
+	"github.com/stretchr/testify/assert"
+)
+
+const userPool string = "https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_xxxxxxxxxx"
+
+func TestAuthenticatorNoAuthHeader(t *testing.T) {
+
+	// arrange - init gin to use the structured logger middleware
+	r := gin.New()
+	r.Use(Authenticator(nil))
+	r.Use(gin.Recovery())
+
+	// arrange - set the routes
+	r.GET("/example", func(c *gin.Context) {})
+
+	// act
+	w := apitesting.PerformRequest(r, "GET", "/example?a=100")
+
+	// assert
+	assert.Equal(t, http.StatusUnauthorized, w.Code)
+	apierror.AssertIsValid(t, w.Body.Bytes())
+}
+
+func TestAuthenticatorWithJWT(t *testing.T) {
+	// arrange - generate key, keyset and JWT
+	key := generateKey(t)
+	jwks := generateKeySetInJSON(&key, t)
+
+	// arrange - define the several test cases
+	testCases := []struct {
+		JWT          string
+		StatusCode   int
+		Purpose      string
+		BodyContains string
+	}{
+		{
+			JWT: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+				"eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ." +
+				"SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+			StatusCode:   http.StatusUnauthorized,
+			Purpose:      "token with signed with another key",
+			BodyContains: "Not authorized",
+		},
+		{
+			JWT:          newJWT(key, true, false, false, t),
+			StatusCode:   http.StatusUnauthorized,
+			Purpose:      "invalid subject claim",
+			BodyContains: "Not authorized",
+		},
+		{
+			JWT:          newJWT(key, false, true, false, t),
+			StatusCode:   http.StatusUnauthorized,
+			Purpose:      "invalid expiration claim",
+			BodyContains: "Not authorized",
+		},
+		{
+			JWT:          newJWT(key, false, false, true, t),
+			StatusCode:   http.StatusUnauthorized,
+			Purpose:      "invalid token_use claim",
+			BodyContains: "Not authorized",
+		},
+		{
+			JWT:          newValidJWT(key, t),
+			StatusCode:   http.StatusOK,
+			Purpose:      "valid JWT",
+			BodyContains: "",
+		},
+	}
+
+	for _, tc := range testCases {
+
+		// arrange - init gin to use the authenticator middleware
+		r := gin.New()
+		authConfig := AuthenticatorConfig{
+			KeySetJSON: jwks,
+			Issuer:     userPool,
+		}
+		r.Use(Authenticator(&authConfig))
+		r.Use(gin.Recovery())
+
+		// arrange - set the routes
+		r.GET("/example", func(c *gin.Context) {
+			cid, _ := c.Get(ClientIdKey)
+			c.JSON(http.StatusOK, cid)
+		})
+
+		// arrange - headers
+		header := http.Header{}
+		header.Add("Authentication", tc.JWT)
+
+		// act
+		w := apitesting.PerformRequestWithHeader(r, "GET", "/example?a=100", header)
+
+		// assert
+		assert.Equal(t,
+			tc.StatusCode,
+			w.Code,
+			fmt.Sprintf("failed %s", tc.Purpose))
+
+		b := w.Body.String()
+		assert.Contains(t, b, tc.BodyContains)
+	}
+}
+
+func newValidJWT(key jwk.Key, t *testing.T) string {
+	return newJWT(key, false, false, false, t)
+}
+
+func newJWT(key jwk.Key, noSub, noExp, noTokenUse bool, t *testing.T) string {
+	token := jwt.New()
+	if !noSub {
+		token.Set("sub", "client_id_1234567890")
+	}
+	if !noTokenUse {
+		token.Set("token_use", "access")
+	}
+	token.Set("scope", "https://learning-go-api.com/all")
+	token.Set("auth_time", 1641417382)
+	token.Set("iss", userPool)
+	if !noExp {
+		token.Set("exp", time.Now().Unix()+1000)
+	} else {
+		token.Set("exp", 1)
+	}
+	token.Set("iat", 1641417382)
+	token.Set("version", 2)
+	token.Set("jti", "a6dd28cc-500e-4b49-a510-efda5195d2f4")
+	token.Set("client_id", "client_id_1234567890")
+
+	signed, err := signJWT(token, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return string(signed)
+}
+
+func signJWT(token jwt.Token, key jwk.Key) ([]byte, error) {
+	return jwt.Sign(token, jwa.RS256, key)
+}
+
+func generateKey(t *testing.T) jwk.Key {
+	raw, err := rsa.GenerateKey(rand.Reader, 2048)
+	if err != nil {
+		t.Fatalf("failed to generate new RSA private key: %s\n", err)
+	}
+
+	key, err := jwk.New(raw)
+	if err != nil {
+		t.Fatalf("failed to create symmetric key: %s\n", err)
+	}
+	if _, ok := key.(jwk.RSAPrivateKey); !ok {
+		t.Fatalf("expected jwk.SymmetricKey, got %T\n", key)
+	}
+
+	key.Set(jwk.KeyIDKey, "mykey")
+
+	return key
+}
+
+func generateKeySetInJSON(key *jwk.Key, t *testing.T) []byte {
+	set := jwk.NewSet()
+	pubKey, _ := (*key).(jwk.RSAPrivateKey).PublicKey()
+	pubKey.Set(jwk.AlgorithmKey, "RS256")
+	set.Add(pubKey)
+
+	buf, err := json.MarshalIndent(set, "", "  ")
+	if err != nil {
+		t.Fatalf("failed to marshal key into JSON: %s\n", err)
+	}
+
+	return buf
+}
+```
+
+Let's highlight the most important aspects:
+
+1. The `TestAuthenticatorNoAuthHeader` function is pretty straightforward and
+it doesn't deserve much comments.
+1. The `TestAuthenticatorWithJWT` function create an array of test cases related
+with the validation of the JWT and the claims. Each element of the array
+contains the JWT to be checked, the expected status code for the JWT,
+the purpose of the test and the contents of the body.
+1. The test cases are executed using a for loop, by initializing Gin, making a
+simple request and checking the results.
+1. The rest of the `internal/middleware/authenticator_test.go` file handles the
+creation of the keys, the token and the sign process so the test cases can be
+executed.
+
+## Make Gin use the middleware
+
+WIP
+
+## Unit testing for changes in the main.go file
+
+WIP
 
 ## Wrap up
+
+WIP

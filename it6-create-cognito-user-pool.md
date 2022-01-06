@@ -139,9 +139,9 @@ aws cognito-idp create-user-pool-client \
 To get the client id execute:
 
 ```sh
-export CLIENT_ID=`aws cognito-idp list-user-pool-clients §
-    --user-pool-id $POOL_ID \  
-    --profile $AWS_PROFILE \ 
+export CLIENT_ID=`aws cognito-idp list-user-pool-clients \
+    --user-pool-id $POOL_ID \
+    --profile $AWS_PROFILE \
     --region $AWS_REGION | jq -r ".UserPoolClients[0].ClientId"`
 ```
 
@@ -191,7 +191,7 @@ export TOKEN_ENDPOINT=https://$DOMAIN.auth.$AWS_REGION.amazoncognito.com/oauth2/
 Call the endpoint using `httpie` to get the token:
 
 ```sh
-http POST $TOKEN_ENDPOINT  \
+http POST $TOKEN_ENDPOINT \
     Authorization:$AUTH_HEADER \
     Content-Type:application/x-www-form-urlencoded \
     --raw "grant_type=client_credentials&scope=https://learning-go-api.com/all"
