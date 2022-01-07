@@ -635,7 +635,7 @@ Update the secrets running:
 kubectl apply -f secrets.yaml -n learning-go-api
 ```
 
-As the secrets.yaml file contains sensitive information, delete it:
+As the `secrets.yaml` file contains sensitive information, delete it:
 
 ```sh
 rm secrets.yaml
