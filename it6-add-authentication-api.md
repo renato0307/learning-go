@@ -27,6 +27,11 @@ The basic structure of the middleware is:
 ```go
 func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
     return func(c *gin.Context) {
+		// Ignore the root as it is used for the liveness probes
+		if c.Request.URL.Path == "/" {
+			return
+		}
+
         // Gets the JWT from the Authentication header
         authHeader := c.GetHeader("Authentication")
         if authHeader == "" {
@@ -95,6 +100,11 @@ const (
 
 func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
     return func(c *gin.Context) {
+		// Ignore the root as it is used for the liveness probes
+		if c.Request.URL.Path == "/" {
+			return
+		}
+
         // Gets the JWT from the Authentication header
         authHeader := c.GetHeader("Authentication")
         if authHeader == "" {
@@ -211,6 +221,23 @@ func TestAuthenticatorNoAuthHeader(t *testing.T) {
     // assert
     assert.Equal(t, http.StatusUnauthorized, w.Code)
     apierror.AssertIsValid(t, w.Body.Bytes())
+}
+
+func TestAuthenticatorRootPathSkipsAuth(t *testing.T) {
+
+	// arrange - init gin to use the structured logger middleware
+	r := gin.New()
+	r.Use(Authenticator(nil))
+	r.Use(gin.Recovery())
+
+	// arrange - set the routes
+	r.GET("/", func(c *gin.Context) {})
+
+	// act
+	w := apitesting.PerformRequest(r, "GET", "/")
+
+	// assert
+	assert.Equal(t, http.StatusOK, w.Code)
 }
 
 func TestAuthenticatorWithJWT(t *testing.T) {
@@ -369,6 +396,8 @@ Let's highlight the most important aspects:
 
 1. The `TestAuthenticatorNoAuthHeader` function is pretty straightforward and
 it doesn't deserve much comments.
+1. The `TestAuthenticatorRootPathSkipsAuth` function checks if the root path
+has no authentication because we need it for the liveness probes.
 1. The `TestAuthenticatorWithJWT` function creates an array of test cases
 related with the validation of the JWT and the claims. Each element of the array
 contains the JWT to be checked, the expected status code for the JWT,
@@ -383,7 +412,7 @@ executed.
 🕵️‍♀️ __GO-EXTRA: Defining structures inline__
 
 From the last code block we are using structures in different way: we declare
-and initialize them inline:
+and initialize them inline.
 
 ```go
 testCases := []struct {
@@ -536,7 +565,7 @@ go run main.go
 And make the request:
 
 ```sh
-http localhost:8080
+http localhost:8080/v1/programming/uuid
 ```
 
 You should now see an authentication error:
@@ -564,7 +593,7 @@ http POST $TOKEN_ENDPOINT \
 Use the `access_token` to call the API:
 
 ```sh
-http localhost:8080 Authentication:eyJraWQiOiJrb1wvR2owY1JrdFwvd2hQbm9Ne...
+http localhost:8080/v1/programming/uuid Authentication:eyJraWQiOiJrb1wvR2owY1JrdFwvd2hQbm9Ne...
 ```
 
 The result should be similar to:
@@ -576,11 +605,81 @@ Content-Type: application/json; charset=utf-8
 Date: Fri, 07 Jan 2022 08:09:25 GMT
 
 {
-    "message": "Hello, welcome to the learning-go-api"
+    "uuid": "83f26b6a-203a-4ce6-b17e-78d994cb99d8"
 }
 ```
 
+## Configure Kubernetes secrets to add the new environment variables
+
+Go to the `learning-go-api-iac` repository.
+
+First create a file named secrets.yaml with the following contents:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: learning-go-api-secrets
+type: Opaque
+data:
+  CURRCONV_API_KEY: <the value of the API key in base64>
+  AUTH_JWKS_LOCATION: <the value of the AUTH_JWKS_LOCATION in base64>
+  AUTH_TOKEN_ISS: <the value of the AUTH_TOKEN_ISS in base64>
+
+```
+
+As this contains sensitive information, delete the secrets.yaml file:
+
+```sh
+rm secrets.yaml
+```
+
+
+Then add the new environment variables in the `deployment.yaml` file:
+
+```yaml
+# ...
+          env:
+            - name: CURRCONV_API_KEY
+              valueFrom:
+                secretKeyRef:
+                    name: learning-go-api-secrets
+                    key: CURRCONV_API_KEY
+            - name: AUTH_JWKS_LOCATION # new
+              valueFrom:
+                secretKeyRef:
+                    name: learning-go-api-secrets
+                    key: AUTH_JWKS_LOCATION
+            - name: AUTH_TOKEN_ISS # new
+              valueFrom:
+                secretKeyRef:
+                    name: learning-go-api-secrets
+                    key: AUTH_TOKEN_ISS
+# ...
+```
+
+In the `Charts.yaml` file, update the versions:
+
+```yaml
+apiVersion: v2
+name: learning-go-api
+description: A Helm chart for Kubernetes
+type: application
+version: 0.1.1      # changed
+appVersion: "0.0.8" # changed
+```
+
+Commit and push everything.
+
+```sh
+git add .
+git commit -m "feat: add authentication to the api"
+git push
+```
+
 ## Wrap up
+
+Go back to the `learning-go-api` repository.
 
 Commit and push everything. Create a new tag.
 
