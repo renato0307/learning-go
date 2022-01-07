@@ -695,3 +695,35 @@ git push
 git tag -a v0.0.9 -m "v0.0.9"
 git push origin v0.0.9
 ```
+
+After some minutes the k8s cluster should be updated.
+
+Running:
+
+```sh
+kubectl -n flux-system get imagepolicies.image.toolkit.fluxcd.io
+```
+
+Should return the latest image:
+
+```
+NAME              LATESTIMAGE
+learning-go-api   renato0307/learning-go-api:0.0.9
+```
+
+Check if the pods started up correctly:
+
+```sh
+kubectl -n learning-go-api get pods
+```
+
+The result should be a list of pods recently created (`AGE` column):
+
+```
+NAME                               READY   STATUS    RESTARTS   AGE
+learning-go-api-6cc97b95cc-pmrpd   1/1     Running   0          1m24s
+learning-go-api-6cc97b95cc-wb579   1/1     Running   0          1m33s
+```
+
+Execute the manual tests using the endpoint for the API running in the cluster
+to check if everything is working as expected.
