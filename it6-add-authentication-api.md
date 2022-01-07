@@ -182,6 +182,23 @@ keys and JSON Web Key Set. Additionally we are going to use a new technique to
 cover all the needed cases, keeping the code
 [DRYier](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
 
+Let's highlight the most important aspects:
+
+1. The `TestAuthenticatorNoAuthHeader` function is pretty straightforward and
+it doesn't deserve much comments.
+1. The `TestAuthenticatorRootPathSkipsAuth` function checks if the root path
+has no authentication because we need it for the liveness probes.
+1. The `TestAuthenticatorWithJWT` function creates an array of test cases
+related with the validation of the JWT and the claims. Each element of the array
+contains the JWT to be checked, the expected status code for the JWT,
+the purpose of the test and the contents of the body.
+1. The test cases are executed using a for loop, by initializing Gin, making a
+simple request and checking the results.
+1. The rest of the `internal/middleware/authenticator_test.go` file handles the
+creation of the keys, the token and the sign process so the test cases can be
+executed.
+
+
 ```go
 package middleware
 
@@ -391,22 +408,6 @@ func generateKeySetInJSON(key *jwk.Key, t *testing.T) []byte {
     return buf
 }
 ```
-
-Let's highlight the most important aspects:
-
-1. The `TestAuthenticatorNoAuthHeader` function is pretty straightforward and
-it doesn't deserve much comments.
-1. The `TestAuthenticatorRootPathSkipsAuth` function checks if the root path
-has no authentication because we need it for the liveness probes.
-1. The `TestAuthenticatorWithJWT` function creates an array of test cases
-related with the validation of the JWT and the claims. Each element of the array
-contains the JWT to be checked, the expected status code for the JWT,
-the purpose of the test and the contents of the body.
-1. The test cases are executed using a for loop, by initializing Gin, making a
-simple request and checking the results.
-1. The rest of the `internal/middleware/authenticator_test.go` file handles the
-creation of the keys, the token and the sign process so the test cases can be
-executed.
 
 ----
 🕵️‍♀️ __GO-EXTRA: Defining structures inline__
