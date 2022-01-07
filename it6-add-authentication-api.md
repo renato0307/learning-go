@@ -27,10 +27,10 @@ The basic structure of the middleware is:
 ```go
 func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
     return func(c *gin.Context) {
-		// Ignore the root as it is used for the liveness probes
-		if c.Request.URL.Path == "/" {
-			return
-		}
+        // Ignore the root as it is used for the liveness probes
+        if c.Request.URL.Path == "/" {
+            return
+        }
 
         // Gets the JWT from the Authentication header
         authHeader := c.GetHeader("Authentication")
@@ -100,10 +100,10 @@ const (
 
 func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
     return func(c *gin.Context) {
-		// Ignore the root as it is used for the liveness probes
-		if c.Request.URL.Path == "/" {
-			return
-		}
+        // Ignore the root as it is used for the liveness probes
+        if c.Request.URL.Path == "/" {
+            return
+        }
 
         // Gets the JWT from the Authentication header
         authHeader := c.GetHeader("Authentication")
@@ -242,19 +242,19 @@ func TestAuthenticatorNoAuthHeader(t *testing.T) {
 
 func TestAuthenticatorRootPathSkipsAuth(t *testing.T) {
 
-	// arrange - init gin to use the structured logger middleware
-	r := gin.New()
-	r.Use(Authenticator(nil))
-	r.Use(gin.Recovery())
+    // arrange - init gin to use the structured logger middleware
+    r := gin.New()
+    r.Use(Authenticator(nil))
+    r.Use(gin.Recovery())
 
-	// arrange - set the routes
-	r.GET("/", func(c *gin.Context) {})
+    // arrange - set the routes
+    r.GET("/", func(c *gin.Context) {})
 
-	// act
-	w := apitesting.PerformRequest(r, "GET", "/")
+    // act
+    w := apitesting.PerformRequest(r, "GET", "/")
 
-	// assert
-	assert.Equal(t, http.StatusOK, w.Code)
+    // assert
+    assert.Equal(t, http.StatusOK, w.Code)
 }
 
 func TestAuthenticatorWithJWT(t *testing.T) {
@@ -423,7 +423,7 @@ testCases := []struct {
     BodyContains string
 }{
     // ...
-	{
+    {
         JWT:          newJWT(key, true, false, false, t),
         StatusCode:   http.StatusUnauthorized,
         Purpose:      "invalid subject claim",
@@ -447,12 +447,12 @@ We need the following changes in the `main.go` file:
 ```go
 // ..
 func main() {
-	// Initialize Gin
-	gin.SetMode(gin.ReleaseMode)
-	r := gin.New()
-	r.Use(middleware.DefaultStructuredLogger())
-	r.Use(middleware.Authenticator(newAuthenticatorConfig())) // new
-	r.Use(gin.Recovery())
+    // Initialize Gin
+    gin.SetMode(gin.ReleaseMode)
+    r := gin.New()
+    r.Use(middleware.DefaultStructuredLogger())
+    r.Use(middleware.Authenticator(newAuthenticatorConfig())) // new
+    r.Use(gin.Recovery())
     //...
 ```
 
@@ -469,36 +469,36 @@ The `newAuthenticatorConfig` function does all the work:
 // AUTH_TOKEN_ISS: https://cognito-idp.$AWS_REGION.amazonaws.com/$POOL_ID
 func newAuthenticatorConfig() *middleware.AuthenticatorConfig {
 
-	// Gets the JSON Web Key Set download URL
-	jwksLocation := getRequiredEnv(AUTH_JWKS_LOCATION)
-	r, err := http.Get(jwksLocation)
-	if err != nil {
-		msg := "cannot get the JWKS content for authentication"
-		log.Error().Err(err).Msg(msg)
-		panic(msg)
-	}
-	defer r.Body.Close()
+    // Gets the JSON Web Key Set download URL
+    jwksLocation := getRequiredEnv(AUTH_JWKS_LOCATION)
+    r, err := http.Get(jwksLocation)
+    if err != nil {
+        msg := "cannot get the JWKS content for authentication"
+        log.Error().Err(err).Msg(msg)
+        panic(msg)
+    }
+    defer r.Body.Close()
 
-	// Downloads the JSON Web Key Set
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		msg := "cannot read the JWKS content for authentication"
-		log.Error().Err(err).Msg(msg)
-		panic(msg)
-	}
+    // Downloads the JSON Web Key Set
+    body, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+        msg := "cannot read the JWKS content for authentication"
+        log.Error().Err(err).Msg(msg)
+        panic(msg)
+    }
 
-	// Creates the AuthenticatorConfig structure
-	config := middleware.AuthenticatorConfig{
-		KeySetJSON: body,
-		Issuer:     getRequiredEnv(AUTH_TOKEN_ISS),
-	}
+    // Creates the AuthenticatorConfig structure
+    config := middleware.AuthenticatorConfig{
+        KeySetJSON: body,
+        Issuer:     getRequiredEnv(AUTH_TOKEN_ISS),
+    }
 
-	log.Debug().
-		Str("auth_token_iss", config.Issuer).
-		Str("auth_jwks_location", jwksLocation).
-		Msg("authenticator config loaded")
+    log.Debug().
+        Str("auth_token_iss", config.Issuer).
+        Str("auth_jwks_location", jwksLocation).
+        Msg("authenticator config loaded")
 
-	return &config
+    return &config
 }
 ```
 ## Unit testing the changes in the main.go file
@@ -510,40 +510,40 @@ The content added to the the `main_test.go` file is:
 
 ```go
 func TestNewAuthenticator(t *testing.T) {
-	// arrange
-	issuer := "https://cognito-idp.$AWS_REGION.amazonaws.com/$POOL_ID"
-	sampleJwks := `
-	{
-		"keys": [{
-			"kid": "1234example=",
-			"alg": "RS256",
-			"kty": "RSA",
-			"e": "AQAB",
-			"n": "1234567890",
-			"use": "sig"
-		}, {
-			"kid": "5678example=",
-			"alg": "RS256",
-			"kty": "RSA",
-			"e": "AQAB",
-			"n": "987654321",
-			"use": "sig"
-		}]
-	}`
+    // arrange
+    issuer := "https://cognito-idp.$AWS_REGION.amazonaws.com/$POOL_ID"
+    sampleJwks := `
+    {
+        "keys": [{
+            "kid": "1234example=",
+            "alg": "RS256",
+            "kty": "RSA",
+            "e": "AQAB",
+            "n": "1234567890",
+            "use": "sig"
+        }, {
+            "kid": "5678example=",
+            "alg": "RS256",
+            "kty": "RSA",
+            "e": "AQAB",
+            "n": "987654321",
+            "use": "sig"
+        }]
+    }`
 
-	svr := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, sampleJwks)
-	}))
+    svr := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprint(w, sampleJwks)
+    }))
 
-	os.Setenv(AUTH_TOKEN_ISS, issuer)
-	os.Setenv(AUTH_JWKS_LOCATION, svr.URL)
+    os.Setenv(AUTH_TOKEN_ISS, issuer)
+    os.Setenv(AUTH_JWKS_LOCATION, svr.URL)
 
-	// act
-	config := newAuthenticatorConfig()
+    // act
+    config := newAuthenticatorConfig()
 
-	// assert
-	assert.Equal(t, []byte(sampleJwks), config.KeySetJSON)
-	assert.Equal(t, issuer, config.Issuer)
+    // assert
+    assert.Equal(t, []byte(sampleJwks), config.KeySetJSON)
+    assert.Equal(t, issuer, config.Issuer)
 }
 ```
 
