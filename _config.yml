@@ -1,3 +1,2 @@
-# theme: jekyll-theme-hacker
-remote_theme: jekyll/minima 
+theme: jekyll-theme-hacker
 markdown: GFM
