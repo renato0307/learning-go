@@ -31,7 +31,7 @@ func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
         authHeader := c.GetHeader("Authentication")
         if authHeader == "" {
             log.Debug().Msg("JWT not found")
-            c.AbortWithStatusJSON(∑
+            c.AbortWithStatusJSON(
                 http.StatusUnauthorized,
                 apierror.New("Not authorized"))
             return
@@ -55,8 +55,8 @@ func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
 ```
 
 The code at this point is fairly simple and straightforward. I just would like
-to highlight the `AuthenticatorConfig` structure. We needed it because for the
-token validation we requires additional data, set in the environment variables
+to highlight the `AuthenticatorConfig` structure. We needed it because the
+token validation requires additional data, set in the environment variables
 used to run the API:
 
 1. The JSON Web Key Set (JWKS), a set of keys containing the public keys used 
@@ -369,8 +369,8 @@ Let's highlight the most important aspects:
 
 1. The `TestAuthenticatorNoAuthHeader` function is pretty straightforward and
 it doesn't deserve much comments.
-1. The `TestAuthenticatorWithJWT` function create an array of test cases related
-with the validation of the JWT and the claims. Each element of the array
+1. The `TestAuthenticatorWithJWT` function creates an array of test cases
+related with the validation of the JWT and the claims. Each element of the array
 contains the JWT to be checked, the expected status code for the JWT,
 the purpose of the test and the contents of the body.
 1. The test cases are executed using a for loop, by initializing Gin, making a
@@ -379,14 +379,215 @@ simple request and checking the results.
 creation of the keys, the token and the sign process so the test cases can be
 executed.
 
+----
+🕵️‍♀️ __GO-EXTRA: Defining structures inline__
+
+From the last code block we are using structures in different way: we declare
+and initialize them inline:
+
+```go
+testCases := []struct {
+    JWT          string
+    StatusCode   int
+    Purpose      string
+    BodyContains string
+}{
+    // ...
+	{
+        JWT:          newJWT(key, true, false, false, t),
+        StatusCode:   http.StatusUnauthorized,
+        Purpose:      "invalid subject claim",
+        BodyContains: "Not authorized",
+    },
+    {
+        JWT:          newJWT(key, false, true, false, t),
+        StatusCode:   http.StatusUnauthorized,
+        Purpose:      "invalid expiration claim",
+        BodyContains: "Not authorized",
+    },
+    // ...
+}
+```
+----
+
 ## Make Gin use the middleware
 
-WIP
+We need the following changes in the `main.go` file:
 
-## Unit testing for changes in the main.go file
+```go
+// ..
+func main() {
+	// Initialize Gin
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.New()
+	r.Use(middleware.DefaultStructuredLogger())
+	r.Use(middleware.Authenticator(newAuthenticatorConfig())) // new
+	r.Use(gin.Recovery())
+    //...
+```
 
-WIP
+The `newAuthenticatorConfig` function does all the work:
+
+```go
+// newAuthenticatorConfig gathers all authentication related information to set
+// up the Authenticator middleware configuration.
+//
+// It requires the definition two environment variables:
+//
+// AUTH_JWKS_LOCATION: https://cognito-idp.$AWS_REGION.amazonaws.com/$POOL_ID/.well-known/jwks.json
+//
+// AUTH_TOKEN_ISS: https://cognito-idp.$AWS_REGION.amazonaws.com/$POOL_ID
+func newAuthenticatorConfig() *middleware.AuthenticatorConfig {
+
+	// Gets the JSON Web Key Set download URL
+	jwksLocation := getRequiredEnv(AUTH_JWKS_LOCATION)
+	r, err := http.Get(jwksLocation)
+	if err != nil {
+		msg := "cannot get the JWKS content for authentication"
+		log.Error().Err(err).Msg(msg)
+		panic(msg)
+	}
+	defer r.Body.Close()
+
+	// Downloads the JSON Web Key Set
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		msg := "cannot read the JWKS content for authentication"
+		log.Error().Err(err).Msg(msg)
+		panic(msg)
+	}
+
+	// Creates the AuthenticatorConfig structure
+	config := middleware.AuthenticatorConfig{
+		KeySetJSON: body,
+		Issuer:     getRequiredEnv(AUTH_TOKEN_ISS),
+	}
+
+	log.Debug().
+		Str("auth_token_iss", config.Issuer).
+		Str("auth_jwks_location", jwksLocation).
+		Msg("authenticator config loaded")
+
+	return &config
+}
+```
+## Unit testing the changes in the main.go file
+
+🏋️‍♀️ __CHALLENGE__: try to implement this by yourself before proceeding. _Tip:
+you need to use the approach we used in the Library when using an external API._
+
+The content added to the the `main_test.go` file is:
+
+```go
+func TestNewAuthenticator(t *testing.T) {
+	// arrange
+	issuer := "https://cognito-idp.$AWS_REGION.amazonaws.com/$POOL_ID"
+	sampleJwks := `
+	{
+		"keys": [{
+			"kid": "1234example=",
+			"alg": "RS256",
+			"kty": "RSA",
+			"e": "AQAB",
+			"n": "1234567890",
+			"use": "sig"
+		}, {
+			"kid": "5678example=",
+			"alg": "RS256",
+			"kty": "RSA",
+			"e": "AQAB",
+			"n": "987654321",
+			"use": "sig"
+		}]
+	}`
+
+	svr := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, sampleJwks)
+	}))
+
+	os.Setenv(AUTH_TOKEN_ISS, issuer)
+	os.Setenv(AUTH_JWKS_LOCATION, svr.URL)
+
+	// act
+	config := newAuthenticatorConfig()
+
+	// assert
+	assert.Equal(t, []byte(sampleJwks), config.KeySetJSON)
+	assert.Equal(t, issuer, config.Issuer)
+}
+```
+
+## Manual testing
+
+We first need to export the required environment variables:
+
+```sh
+export AUTH_JWKS_LOCATION=https://cognito-idp.$AWS_REGION.amazonaws.com/$POOL_ID/.well-known/jwks.json
+export AUTH_TOKEN_ISS=https://cognito-idp.$AWS_REGION.amazonaws.com/$POOL_ID
+export CURRCONV_API_KEY=your_currconf_api_key_here
+```
+
+Start the API:
+
+```sh
+go run main.go
+```
+
+And make the request:
+
+```sh
+http localhost:8080
+```
+
+You should now see an authentication error:
+
+```json
+HTTP/1.1 401 Unauthorized
+Content-Length: 28
+Content-Type: application/json; charset=utf-8
+Date: Fri, 07 Jan 2022 08:03:47 GMT
+
+{
+    "message": "Not authorized"
+}
+```
+
+We need to generate a new token, like we did in the previous chapter:
+
+```sh
+http POST $TOKEN_ENDPOINT \
+    Authorization:$AUTH_HEADER \
+    Content-Type:application/x-www-form-urlencoded \
+    --raw "grant_type=client_credentials&scope=https://learning-go-api.com/all"
+```
+
+Use the `access_token` to call the API:
+
+```sh
+http localhost:8080 Authentication:eyJraWQiOiJrb1wvR2owY1JrdFwvd2hQbm9Ne...
+```
+
+The result should be similar to:
+
+```json
+HTTP/1.1 200 OK
+Content-Length: 51
+Content-Type: application/json; charset=utf-8
+Date: Fri, 07 Jan 2022 08:09:25 GMT
+
+{
+    "message": "Hello, welcome to the learning-go-api"
+}
+```
 
 ## Wrap up
 
-WIP
+Commit and push everything. Create a new tag.
+
+```sh
+git add .
+git commit -m "feat: add authentication to the api"
+git push
+git tag -a v0.0.9 -m "v0.0.9"
+git push origin v0.0.9
+```
