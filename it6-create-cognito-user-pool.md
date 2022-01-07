@@ -24,7 +24,7 @@ export AWS_PROFILE=default # or the profile defined when configuring the CLI
 export AWS_REGION=eu-west-1 # you can pick another region
 export POOL_NAME=learning-go-pool
 export DOMAIN=learning-go-renato0307 # pick a unique name
-export RESOURCE_SERVER_NAME=learning-go-api
+export RESOURCE_SERVER_NAME=learninggolang
 ```
 
 ## Create a User Pool
@@ -167,7 +167,7 @@ aws cognito-idp update-user-pool-client \
     --supported-identity-providers "COGNITO" \
     --allowed-o-auth-flows "client_credentials" \
     --allowed-o-auth-flows-user-pool-client \
-    --allowed-o-auth-scopes "https://learning-go-api.com/all" \ # you can add more scopes here
+    --allowed-o-auth-scopes "https://$RESOURCE_SERVER_NAME.com/all" \ # you can add more scopes here
     --profile $AWS_PROFILE \
     --region $AWS_REGION
 ```
@@ -194,7 +194,7 @@ Call the endpoint using `httpie` to get the token:
 http POST $TOKEN_ENDPOINT \
     Authorization:$AUTH_HEADER \
     Content-Type:application/x-www-form-urlencoded \
-    --raw "grant_type=client_credentials&scope=https://learning-go-api.com/all"
+    --raw "grant_type=client_credentials&scope="
 ```
 
 The result should be similar to:

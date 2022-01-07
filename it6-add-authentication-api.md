@@ -350,7 +350,7 @@ func newJWT(key jwk.Key, noSub, noExp, noTokenUse bool, t *testing.T) string {
     if !noTokenUse {
         token.Set("token_use", "access")
     }
-    token.Set("scope", "https://learning-go-api.com/all")
+    token.Set("scope", "https://learninggolang.com/all")
     token.Set("auth_time", 1641417382)
     token.Set("iss", userPool)
     if !noExp {
@@ -627,7 +627,7 @@ We need to generate a new token, like we did in the previous chapter:
 http POST $TOKEN_ENDPOINT \
     Authorization:$AUTH_HEADER \
     Content-Type:application/x-www-form-urlencoded \
-    --raw "grant_type=client_credentials&scope=https://learning-go-api.com/all"
+    --raw "grant_type=client_credentials&scope=https://learninggolang.com/all"
 ```
 
 Use the `access_token` to call the API:
