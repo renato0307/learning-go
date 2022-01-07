@@ -628,12 +628,17 @@ data:
 
 ```
 
-As this contains sensitive information, delete the secrets.yaml file:
+Update the secrets running:
+
+```sh
+kubectl apply -f secrets.yaml -n learning-go-api
+```
+
+As the secrets.yaml file contains sensitive information, delete it:
 
 ```sh
 rm secrets.yaml
 ```
-
 
 Then add the new environment variables in the `deployment.yaml` file:
 
