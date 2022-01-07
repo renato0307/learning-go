@@ -124,14 +124,14 @@ not need to parse the JWT again:
 
 ```go
 func Authenticator(ac *AuthenticatorConfig) gin.HandlerFunc {
-	return func(c *gin.Context) {
+    return func(c *gin.Context) {
 
         // ...
 
-		// Puts the scopes in the Gin context
-		scope, _ := token.Get(ScopeKey)  // new
-		c.Set(ScopeKey, scope)           // new
-	}
+        // Puts the scopes in the Gin context
+        scope, _ := token.Get(ScopeKey)  // new
+        c.Set(ScopeKey, scope)           // new
+    }
 }
 ```
 
@@ -150,50 +150,50 @@ The authorizer code follows. With the comments, it should be easy to understand.
 package middleware
 
 import (
-	"net/http"
-	"strings"
+    "net/http"
+    "strings"
 
-	"github.com/gin-gonic/gin"
-	"github.com/renato0307/learning-go-api/internal/apierror"
-	"github.com/rs/zerolog/log"
+    "github.com/gin-gonic/gin"
+    "github.com/renato0307/learning-go-api/internal/apierror"
+    "github.com/rs/zerolog/log"
 )
 
 func Authorizer() gin.HandlerFunc {
-	return func(c *gin.Context) {
+    return func(c *gin.Context) {
 
-		// extracts the required scope from the URL
-		p1 := c.Request.URL.Path               // p1 = "/v1/programming/uuid"
-		p2 := strings.ReplaceAll(p1, "/", "-") // p2 = "-v1-programming-uuid"
-		p3 := strings.Split(p2, "-")           // p3 = ["", "v1", "programming", "uuid"]
-		p4 := p3[2:]                           // p4 = ["programming", "uuid"]
-		scope := strings.Join(p4, "-")         // scope = "programming-uuid"
-		log.Debug().Msgf("scope for url is %s", scope)
+        // extracts the required scope from the URL
+        p1 := c.Request.URL.Path               // p1 = "/v1/programming/uuid"
+        p2 := strings.ReplaceAll(p1, "/", "-") // p2 = "-v1-programming-uuid"
+        p3 := strings.Split(p2, "-")           // p3 = ["", "v1", "programming", "uuid"]
+        p4 := p3[2:]                           // p4 = ["programming", "uuid"]
+        scope := strings.Join(p4, "-")         // scope = "programming-uuid"
+        log.Debug().Msgf("scope for url is %s", scope)
 
-		// gets the scopes added by the Authenticator middleware
-		clientScopes := c.GetString(ScopeKey)
-		clientScopesList := strings.Split(clientScopes, " ")
-		log.Debug().Msgf("client scope list is %s", clientScopes)
+        // gets the scopes added by the Authenticator middleware
+        clientScopes := c.GetString(ScopeKey)
+        clientScopesList := strings.Split(clientScopes, " ")
+        log.Debug().Msgf("client scope list is %s", clientScopes)
 
-		// tries to find a matching scope
-		found := false
-		for _, clientScope := range clientScopesList {
-			found = strings.HasSuffix(clientScope, scope)
-			if found {
-				break
-			}
-		}
+        // tries to find a matching scope
+        found := false
+        for _, clientScope := range clientScopesList {
+            found = strings.HasSuffix(clientScope, scope)
+            if found {
+                break
+            }
+        }
 
-		// returns forbidden (HTTP status 403) if no valid scope is found
-		if !found {
-			log.Debug().Msg("no scope found for current route")
-			c.AbortWithStatusJSON(
-				http.StatusForbidden,
-				apierror.New("Forbidden"))
-			return
-		}
+        // returns forbidden (HTTP status 403) if no valid scope is found
+        if !found {
+            log.Debug().Msg("no scope found for current route")
+            c.AbortWithStatusJSON(
+                http.StatusForbidden,
+                apierror.New("Forbidden"))
+            return
+        }
 
-		log.Debug().Msg("valid client scope found for current route")
-	}
+        log.Debug().Msg("valid client scope found for current route")
+    }
 }
 ```
 
@@ -209,71 +209,71 @@ them all, keeping the code simpler.
 package middleware
 
 import (
-	"net/http"
-	"testing"
+    "net/http"
+    "testing"
 
-	"github.com/gin-gonic/gin"
-	"github.com/renato0307/learning-go-api/internal/apitesting"
-	"github.com/stretchr/testify/assert"
+    "github.com/gin-gonic/gin"
+    "github.com/renato0307/learning-go-api/internal/apitesting"
+    "github.com/stretchr/testify/assert"
 )
 
 func TestAuthorizer(t *testing.T) {
 
-	testCases := []struct {
-		Scopes     string
-		URL        string
-		RequestURL string
-		Purpose    string
-		StatusCode int
-	}{
-		{
-			Scopes:     "https://learninggolang.com/programming-jwtdebugger",
-			URL:        "/v1/programming-jwtdebugger",
-			RequestURL: "/v1/programming-jwtdebugger?abcd",
-			Purpose:    "scopes match URL",
-			StatusCode: http.StatusOK,
-		},
-		{
-			Scopes:     "https://learninggolang.com/programming-uuid",
-			URL:        "/v1/programming-jwtdebugger",
-			RequestURL: "/v1/programming-jwtdebugger",
-			Purpose:    "scopes do not match URL",
-			StatusCode: http.StatusForbidden,
-		},
-		{
-			Scopes:     "",
-			URL:        "/v1/programming-jwtdebugger",
-			RequestURL: "/v1/programming-jwtdebugger",
-			Purpose:    "no scopes defined",
-			StatusCode: http.StatusForbidden,
-		},
-		{
-			Scopes:     "https://learninggolang.com/programming-jwtdebugger https://learninggolang.com/programming-uuid",
-			URL:        "/v1/programming-jwtdebugger",
-			RequestURL: "/v1/programming-jwtdebugger",
-			Purpose:    "list of scopes",
-			StatusCode: http.StatusOK,
-		},
-	}
+    testCases := []struct {
+        Scopes     string
+        URL        string
+        RequestURL string
+        Purpose    string
+        StatusCode int
+    }{
+        {
+            Scopes:     "https://learninggolang.com/programming-jwtdebugger",
+            URL:        "/v1/programming-jwtdebugger",
+            RequestURL: "/v1/programming-jwtdebugger?abcd",
+            Purpose:    "scopes match URL",
+            StatusCode: http.StatusOK,
+        },
+        {
+            Scopes:     "https://learninggolang.com/programming-uuid",
+            URL:        "/v1/programming-jwtdebugger",
+            RequestURL: "/v1/programming-jwtdebugger",
+            Purpose:    "scopes do not match URL",
+            StatusCode: http.StatusForbidden,
+        },
+        {
+            Scopes:     "",
+            URL:        "/v1/programming-jwtdebugger",
+            RequestURL: "/v1/programming-jwtdebugger",
+            Purpose:    "no scopes defined",
+            StatusCode: http.StatusForbidden,
+        },
+        {
+            Scopes:     "https://learninggolang.com/programming-jwtdebugger https://learninggolang.com/programming-uuid",
+            URL:        "/v1/programming-jwtdebugger",
+            RequestURL: "/v1/programming-jwtdebugger",
+            Purpose:    "list of scopes",
+            StatusCode: http.StatusOK,
+        },
+    }
 
-	for _, tc := range testCases {
-		// arrange - init gin to use the middleware
-		r := gin.New()
-		r.Use(func(c *gin.Context) { // fake Authenticator
-			c.Set(ScopeKey, tc.Scopes)
-		})
-		r.Use(Authorizer())
-		r.Use(gin.Recovery())
+    for _, tc := range testCases {
+        // arrange - init gin to use the middleware
+        r := gin.New()
+        r.Use(func(c *gin.Context) { // fake Authenticator
+            c.Set(ScopeKey, tc.Scopes)
+        })
+        r.Use(Authorizer())
+        r.Use(gin.Recovery())
 
-		// arrange - set the routes
-		r.POST(tc.URL, func(c *gin.Context) {})
+        // arrange - set the routes
+        r.POST(tc.URL, func(c *gin.Context) {})
 
-		// act
-		w := apitesting.PerformRequest(r, "POST", tc.RequestURL)
+        // act
+        w := apitesting.PerformRequest(r, "POST", tc.RequestURL)
 
-		// assert
-		assert.Equal(t, tc.StatusCode, w.Code, tc.Purpose)
-	}
+        // assert
+        assert.Equal(t, tc.StatusCode, w.Code, tc.Purpose)
+    }
 }
 ```
 
@@ -283,15 +283,15 @@ We need to make Gin use the new middleware:
 
 ```go
 func main() {
-	// Initialize Gin
-	gin.SetMode(gin.ReleaseMode)
-	r := gin.New()
-	r.Use(middleware.DefaultStructuredLogger())
-	r.Use(middleware.Authenticator(newAuthenticatorConfig()))
-	r.Use(middleware.Authorizer()) // new
-	r.Use(gin.Recovery())
+    // Initialize Gin
+    gin.SetMode(gin.ReleaseMode)
+    r := gin.New()
+    r.Use(middleware.DefaultStructuredLogger())
+    r.Use(middleware.Authenticator(newAuthenticatorConfig()))
+    r.Use(middleware.Authorizer()) // new
+    r.Use(gin.Recovery())
 
-	// ...
+    // ...
 }
 ```
 
