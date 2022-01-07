@@ -174,9 +174,9 @@ func Authorizer() gin.HandlerFunc {
         clientScopesList := strings.Split(clientScopes, " ")
         log.Debug().Msgf("client scope list is %s", clientScopes)
 
-		// tries to find a matching scope
-		// scopes have the following format
-		// https://learninggolang.com/programming-jwtdebugger
+        // tries to find a matching scope
+        // scopes have the following format
+        // https://learninggolang.com/programming-jwtdebugger
         found := false
         for _, clientScope := range clientScopesList {
             found = strings.HasSuffix(clientScope, scope)
