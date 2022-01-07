@@ -97,7 +97,7 @@ We need to return an `ApiError` instead of a plain string:
         // ...
 ```
 
-🏋️‍♀️ __CHALLENGE__: Do this change for all errors in all packages.
+🏋️‍♀️ __CHALLENGE__: do this change for all errors in all packages.
 
 ## Change the tests
 
@@ -202,7 +202,7 @@ func TestGetCurrConvWithMissingFrom(t *testing.T) {
 }
 ```
 
-🏋️‍♀️ __CHALLENGE__: Do this change for the tests in all packages.
+🏋️‍♀️ __CHALLENGE__: do this change for the tests in all packages.
 
 In the end, ensure all tests are green.
 
