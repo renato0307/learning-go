@@ -54,6 +54,7 @@ __Are you ready?__
 
 ## Iteration 7 - implementing the CLI
 1. [Start the project](it7-cli-start-the-project.md)
+1. [Introduction to Cobra](it7-cli-cobra-intro.md)
 1. Add programming/uuid to the CLI
 1. Add programming/jwtdebugger to the CLI
 1. Add finance/currency-converter to the CLI
