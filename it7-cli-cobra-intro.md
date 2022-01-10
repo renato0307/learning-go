@@ -135,3 +135,13 @@ And the result will be:
 ```
 learning-go-cli version 0.0.1
 ```
+
+## Wrap up
+
+Commit and push everything.
+
+```sh
+git add .
+git commit -m "feat: add basic CLI structure using cobra"
+git push
+```
