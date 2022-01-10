@@ -14,6 +14,33 @@ From the [GitHub repository README](https://github.com/spf13/cobra):
 > Cobra is used in many Go projects such as Kubernetes, Hugo, and Github CLI 
 > to name a few.
 
+## Concepts
+
+Cobra is built around commands, arguments & flags:
+
+* Command - represent an action
+* Args - are things
+* Flags - are modifiers for the actions
+
+We will build commands that follow a common pattern:
+
+```
+APPNAME COMMAND ARG --FLAG
+```
+
+For example:
+
+```sh
+git clone URL --bare
+```
+
+Where:
+* `git` - app name
+* `clone` - the command
+* `URL` - an argument
+* `bare` - a flag
+
+
 ## Installation
 
 Let's first install Cobra:
