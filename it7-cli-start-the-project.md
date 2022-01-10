@@ -1,6 +1,9 @@
 # Start the CLI project
 
-In this step we will:
+The CLI will allows us to run the learning-go-api utility functions from the
+command line.
+
+So, in this section we will:
 
 1. Create the CLI folder
 1. Init the git repository
