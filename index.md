@@ -53,7 +53,7 @@ __Are you ready?__
 1. [Add authorization to the API](it6-add-authorization-api.md)
 
 ## Iteration 7 - implementing the CLI
-1. Start the project
+1. [Start the project](it7-cli-start-the-project.md)
 1. Add programming/uuid to the CLI
 1. Add programming/jwtdebugger to the CLI
 1. Add finance/currency-converter to the CLI
