@@ -1,4 +1,4 @@
-# Configuration of API credentials
+# Add configuration to the CLI
 
 All commands will require API authentication. To avoid having to enter the
 credentials all the time we will make a command just to store the API
@@ -122,8 +122,8 @@ func init() {
 ```
 
 The `cobra.OnInitialize` will call the `initConfig` function before each command
-is execute. We add the `configure` command to the `root` command. This makes the
-`configure` command available automatically.
+is executed. We add the `configure` command to the `root` command. This makes
+the `configure` command available automatically.
 
 The `initConfig` will be implemented in the `configure.go` file as it is 
 highly related with configuration.
