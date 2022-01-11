@@ -7,9 +7,23 @@ authentication information in a file so all commands can use them.
 Reading and writing configurations when using Cobra can be easily done using
 [Viper](https://github.com/spf13/viper).
 
-Create the `configure.go`  file in the `cmd` folder.
+So we will create a command named `configure` to achieve this purpose.
 
-The contents of this file are:
+The command will have the following flags:
+
+* `client-id` - sets the Cognito client id
+* `client-secret` - sets the Cognito client secret
+* `token-endpoint` - sets the Cognito OAuth2 token endpoint
+* `api-endpoint` - sets the endpoint for the learning-go-api
+
+Let's start by creating needed files in the `cmd` folder.
+
+```sh
+touch cmd/configure.go
+touch cmd/configure_test.go
+```
+
+The contents of the `configure.go` file are:
 
 ```go
 package cmd
@@ -87,13 +101,12 @@ func execute(cmd *cobra.Command, args []string) error {
 
 I would like to highlight the following:
 
-1. In the `NewConfigureCommand` function besides the creation of the command,
-we are also defining four required flags. These flags are meant to get the
-information needed to request JWTs and call the API.
+1. In the `NewConfigureCommand` function, besides the creation of the command,
+we are also defining the four required flags.
 1. In the `execute` function we read the flags value and save them to a config
 file using `viper`.
 
-For this to work we must do some changes in the `root.go ` file:
+For this to work we must do some changes in the `root.go` file:
 
 ```go
 // ...
@@ -109,7 +122,8 @@ func init() {
 ```
 
 The `cobra.OnInitialize` will call the `initConfig` function before each command
-is execute. We also add the `configure` command to the root command.
+is execute. We add the `configure` command to the `root` command. This makes the
+`configure` command available automatically.
 
 The `initConfig` will be implemented in the `configure.go` file as it is 
 highly related with configuration.
@@ -161,7 +175,8 @@ func createConfigFile(home string, name string, ext string) (string, error) {
 ```
 
 The `initConfig` will read the configuration from the
-`$HOME/.learning-go-cli.yaml` file and it will create it if does not exist.
+`$HOME/.learning-go-cli.yaml` file. If the configuration file will created, if
+does not exist.
 
 ## Unit testing
 
@@ -263,7 +278,7 @@ If we run:
 go run main.go
 ```
 
-We will see a new command in the list:
+We will see a new `configure` command in the list:
 
 ```
 The learning-go-api provides with utility functions like UUID
@@ -334,3 +349,11 @@ token-endpoint: fake_token_endpoint
 ```
 
 ## Wrap up
+
+Commit and push everything.
+
+```sh
+git add .
+git commit -m "feat: add configure command"
+git push
+```
