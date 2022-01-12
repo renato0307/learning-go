@@ -105,9 +105,11 @@ The code to add to the `root.go` file is:
 // ..
 
 func init() {
+	cobra.OnInitialize(initConfig)
+	rootCmd.AddCommand(NewConfigureCommand())
+
 	rootCmd.AddCommand(programming.NewProgrammingCmd()) // new
 }
-
 ```
 
 ## Unit tests for the `programming` command
@@ -148,16 +150,16 @@ func TestExecute(t *testing.T) {
 
 ## Add the `uuid` sub-command
 
-The uuid
+The `uuid` sub-command 
 
-## Refactor the `programming` command for better testability
+## Refactor the `uuid` command for better testability
 
 The commands to implement will in most of the cases write output to the console.
 Therefore, to be able to appropriately unit test the commands, we need to remove
 that direct dependency so we can write the output to a buffer and inspect that
 buffer to check for the appropriate behavior.
 
-Other well know CLIs (like the GitHub CLI) use this approach.
+Other well known CLIs (like the GitHub CLI) use this approach.
 
 Basically consists in having a struct with the input, output and error
 readers/writers interfaces.
@@ -224,11 +226,9 @@ func TestPrintOutput(t *testing.T) {
 ```
 
 Next we need to change the `uuid.go`, the `programming.go` and the `root.go`
- files to use the `iostreams` package.
+files to use the `iostreams` package.
 
 First let's do the changes in `programming.go`:
 
 ```go
 ```
-
-## API authentication using 
