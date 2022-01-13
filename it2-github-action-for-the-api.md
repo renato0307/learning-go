@@ -196,7 +196,7 @@ Get those and execute the following command:
 
 ```sh
 act push \
-    -e .github/testing/push-tag.json \
+    -e .github/workflows/push-tag.json \
     -s GITHUB_TOKEN \
     -s DOCKER_HUB_USERNAME \
     -s DOCKER_HUB_TOKEN
