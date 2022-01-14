@@ -55,12 +55,16 @@ __Are you ready?__
 ## Iteration 7 - implementing the CLI
 1. [Start the project](it7-cli-start-the-project.md)
 1. [Introduction to Cobra](it7-cli-cobra-intro.md)
-1. [Add configuration to the CLI](it7-cli-api-configuration.md)
-1. [Add programming/uuid to the CLI](it7-cli-add-programming-uuid.md)
+1. [CLI building blocks - configuration](it7-cli-building-blocks-configuration.md)
+1. CLI building blocks - authentication
+1. CLI building blocks - refactoring for better testing
+1. CLI building blocks - testing helpers
+1. Add configure command to the CLI
+1. Add programming/uuid command to the CLI
 1. Basic CI/CD for the CLI
 1. Autocompletion
-1. Add programming/jwtdebugger to the CLI
-1. Add finance/currency-converter to the CLI
+1. Add programming/jwtdebugger command to the CLI
+1. Add finance/currency-converter command to the CLI
 
 ## Next Iterations - WIP
 1. Monitoring & alarms

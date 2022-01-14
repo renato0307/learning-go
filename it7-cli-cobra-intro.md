@@ -172,3 +172,14 @@ git add .
 git commit -m "feat: add basic CLI structure using cobra"
 git push
 ```
+
+## What's next
+
+To ease up the creation of commands we first going to implement some building
+blocks, common to all commands:
+
+1. Configurations
+1. Authentication
+1. Testing
+
+Let's go!
