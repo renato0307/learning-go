@@ -56,7 +56,7 @@ __Are you ready?__
 1. [Start the project](it7-cli-start-the-project.md)
 1. [Introduction to Cobra](it7-cli-cobra-intro.md)
 1. [CLI building blocks - configuration](it7-cli-building-blocks-configuration.md)
-1. CLI building blocks - authentication
+1. [CLI building blocks - authentication](it7-cli-building-blocks-authentication.md)
 1. CLI building blocks - refactoring for better testing
 1. CLI building blocks - testing helpers
 1. Add configure command to the CLI
