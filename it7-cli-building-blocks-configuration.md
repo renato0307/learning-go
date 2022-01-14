@@ -157,7 +157,7 @@ func WriteAuthenticationConfig(
 ```
 
 When defining a command, we must ensure the configurations needed to call
-the API a set.
+the API are set.
 
 We can take advantage of `PreRun` function supported by Cobra. The `*Run`
 functions are executed in the following order:
@@ -332,5 +332,3 @@ func TestAddCommandWithConfigPreCheck(t *testing.T) {
 	assert.Contains(t, parentCmd.Commands(), cmd)
 }
 ```
-
-

@@ -59,11 +59,11 @@ __Are you ready?__
 1. [CLI building blocks: authentication](it7-cli-building-blocks-authentication.md)
 1. [CLI building blocks: IO streams & testing helpers](it7-cli-building-blocks-iostreams.md)
 1. [Add the configure command to the CLI](it7-cli-add-configure-cmd.md)
-1. Add the programming/uuid command to the CLI
+1. [Add the programming/uuid command to the CLI](it7-cli-add-programming-uuid-cmd.md)
 1. Basic CI/CD for the CLI
 1. Autocompletion
-1. Add the programming/jwtdebugger command to the CLI
-1. Add the finance/currency-converter command to the CLI
+1. [Challenge: Add the programming/jwtdebugger command to the CLI](it7-cli-add-programming-jwtdebugger-cmd.md)
+1. [Challenge: Add the finance/currency-converter command to the CLI](it7-cli-add-finance-currconv-cmd.md)
 
 ## Next Iterations - WIP
 1. Monitoring & alarms
