@@ -437,7 +437,7 @@ To execute the `uuid` command please first run `configure` command.
 
 Example:
 
-```ssh
+```sh
 go run main.go configure \
         -a https://localhost:8080/v1 \
         -c your_client_id \
@@ -455,7 +455,7 @@ go run main.go programming uuid --help
 
 The output should be similar to:
 
-```
+```terminal
 Generates an UUID, with or without hyphens.
 
 Usage:
@@ -474,7 +474,7 @@ go run main.go programming uuid
 
 The output should be similar to:
 
-```
+```json
 {
   "uuid": "4819c2aa-7028-46f7-adf6-e5e95e9ffae9"
 }
@@ -488,7 +488,7 @@ go run main.go programming uuid --no-hyphens
 
 The output should be similar to:
 
-```
+```json
 {
   "uuid": "1c91273c8cf64c699ad57d8c3cd16f63"
 }

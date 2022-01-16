@@ -214,7 +214,7 @@ go run main.go
 
 We will see a new `configure` command in the list:
 
-```
+```terminal
 The learning-go-api provides with utility functions like UUID
 generation, a currency converter, a JWT debugger, etc.
 
@@ -241,7 +241,7 @@ go run main.go configure
 
 We will get the help for the `configure` command:
 
-```
+```terminal
 Error: required flag(s) "api-endpoint", "client-id", "client-secret", "token-endpoint" not set
 Usage:
   learning-go-cli configure [flags]
@@ -275,7 +275,7 @@ cat $HOME/.learning-go-cli.yaml
 
 The contents should be:
 
-```
+```yaml
 api-endpoint: fake_api_endpoint
 client-id: fake_client_id
 client-secret: fake_secret_id

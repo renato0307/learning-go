@@ -112,7 +112,7 @@ go run main.go
 
 Now you'll see the following as output:
 
-```
+```terminal
 The learning-go-api provides with utility functions like UUID 
 generation, a currency converter, etc.
 
