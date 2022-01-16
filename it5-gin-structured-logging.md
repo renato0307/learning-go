@@ -4,7 +4,7 @@ After adding structured logs to the API, if we start Gin and make a request, we
 will see mixed log formats. Our new log entries have a JSON format but the
 default log entries from Gin are still plain text:
 
-```
+```terminal
 {"level":"debug","time":"2022-01-03T07:20:28Z","message":"setting router group for: programming"}
 {"level":"debug","time":"2022-01-03T07:20:28Z","message":"setting router group for: finance"}
 {"level":"debug","from":"","to":"","amount":"","time":"2022-01-03T07:20:33Z","message":"running currency converter"}
