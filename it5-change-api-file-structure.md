@@ -10,7 +10,7 @@ For example, the programming category contains UUID generation and the JWT
 debugger, all implemented inside the `programming.go` file.
 
 
-```ssh
+```terminal
 .
 ├── finance
 │   ├── finance.go          # => all functionalities in a single file
@@ -25,7 +25,7 @@ debugger, all implemented inside the `programming.go` file.
 
 In the Library we have cerate a file per functionality:
 
-```
+```terminal
 .
 ├── finance
 │   ├── currconv.go       # => one functionality per file
@@ -110,7 +110,7 @@ the rest of the code removed from the `finance/finance.go` and
 Do the same changes for the `programming` package. In the end you should have
 the following structure:
 
-```
+```terminal
 .
 ├── finance
 │   ├── currconv.go

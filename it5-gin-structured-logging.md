@@ -270,7 +270,7 @@ JSON:
 If we take a look at our current folder with the latest changes we see a mix of
 things:
 
-```
+```terminal
 .
 ├── apierror    # internal stuff
 ├── finance     # functionalities for finance
@@ -289,7 +289,7 @@ packages to the `pkg` folder.
 
 The final structure we want to achieve is:
 
-```
+```terminal
 .
 ├── internal
 │   ├── apierror

@@ -36,7 +36,7 @@ helm create learning-go-api
 
 After running the following files and directories will be created:
 
-```
+```terminal
 learning-go-api
 ├── charts                  # A directory containing any charts upon which this chart depends
 ├── Chart.yaml              # A YAML file containing information about the chart
