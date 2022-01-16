@@ -249,7 +249,7 @@ http 172.19.255.200:9000
 
 The result should be:
 
-```
+```terminal
 HTTP/1.1 200 OK
 Content-Length: 51
 Content-Type: application/json; charset=utf-8

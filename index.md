@@ -66,6 +66,7 @@ __Are you ready?__
 1. [Challenge: Add the finance/currency-converter command to the CLI](it7-cli-add-finance-currconv-cmd.md)
 
 ## Next Iterations - WIP
+1. Dapr (https://dapr.io)
 1. Monitoring & alarms
 1. Increase testing coverage
 1. Go tools (gofmt, go mod, ...)

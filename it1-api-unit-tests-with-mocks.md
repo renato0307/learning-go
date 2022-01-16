@@ -239,7 +239,7 @@ Open the `learning-go-api` project using vscode.
 
 First we need to change the `go.mod` to require the new version of the lib.
 
-```go.mod
+```terminal
 module github.com/renato0307/learning-go-api
 
 go 1.17

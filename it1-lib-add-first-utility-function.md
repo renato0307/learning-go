@@ -86,7 +86,7 @@ func NewUuid(withoutHyphen bool) string {
 We are using the `github.com/google/uuid` to generate UUIDs. The import 
 statement can generate an error message:
 
-```
+```terminal
 could not import github.com/google/uuid (no required module provides package "github.com/google/uuid")
 ```
 
@@ -203,7 +203,7 @@ git push origin v0.0.1
 
 The result should be similar to:
 
-```
+```terminal
 Enumerating objects: 1, done.
 Counting objects: 100% (1/1), done.
 Writing objects: 100% (1/1), 156 bytes | 156.00 KiB/s, done.

@@ -61,7 +61,7 @@ http localhost:8080
 
 You should see a result similar to:
 
-```
+```terminal
 HTTP/1.1 200 OK
 Content-Length: 51
 Content-Type: application/json; charset=utf-8

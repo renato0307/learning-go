@@ -4,10 +4,12 @@
 @import "{{ site.theme }}";
 
 $container-max-width: 1050px;
+$body-background: black;
 
 body {
   font-size: 18px;
   font-family: 'JetBrains Mono', monospace;
+  background: $body-background 0 0;
 }
 
 .container {
@@ -33,16 +35,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 code {
-  background: rgba(0, 0, 0, 0.5);
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  background: rgb(31, 30, 30);  
   border-radius: 5px;
   font-family: 'JetBrains Mono', monospace;
 }
 
 .highlight {
+  background: rgb(31, 30, 30);
   border-radius: 10px;
 }
 

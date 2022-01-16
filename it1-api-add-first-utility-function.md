@@ -288,7 +288,7 @@ http POST localhost:8080/v1/programming/uuid
 
 The result should be similar to:
 
-```
+```terminal
 HTTP/1.1 200 OK
 Content-Length: 47
 Content-Type: application/json; charset=utf-8

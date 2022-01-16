@@ -30,7 +30,7 @@ associated with the token or its validity, in case authentication issues.
 
 From a token like
 
-```
+```terminal
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 We can extract the header
@@ -206,7 +206,7 @@ request to `/programming/jwt`. The JWT will be sent in the body of the request.
 
 The first change is to update the Library version and run `go mod tidy`:
 
-```go.mod
+```terminal
 module github.com/renato0307/learning-go-api
 
 go 1.17
@@ -363,7 +363,7 @@ http POST localhost:8080/v1/programming/jwt \
 
 The result should be similar to:
 
-```
+```terminal
 HTTP/1.1 200 OK
 Content-Length: 126
 Content-Type: application/json; charset=utf-8

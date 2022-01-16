@@ -69,7 +69,7 @@ go run main.go
 
 You should see in the output:
 
-```
+```terminal
 Hello, World!
 ```
 

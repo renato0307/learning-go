@@ -109,7 +109,7 @@ http localhost:81
 
 The result should be similar to:
 
-```
+```terminal
 HTTP/1.1 200 OK
 Content-Length: 51
 Content-Type: application/json; charset=utf-8

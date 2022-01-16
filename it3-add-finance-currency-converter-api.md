@@ -9,7 +9,7 @@ Go to the API folder.
 
 The first change is to update the Library version and run `go mod tidy`:
 
-```go.mod
+```terminal
 module github.com/renato0307/learning-go-api
 
 go 1.17
