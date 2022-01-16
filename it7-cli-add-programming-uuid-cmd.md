@@ -59,7 +59,7 @@ real functionality, its just an aggregator for all functions of this category.
 We are not going to use command generator included in Cobra as it will generate
 more stuff then we really need. 
 
-Let's add the following content to the `cmd/programming/programming.go file`:
+Let's add the following content to the `cmd/programming/programming.go` file:
 
 ```go
 package programming
