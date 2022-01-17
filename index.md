@@ -3,9 +3,9 @@
 Learn Go by building a REST API and a Command Line Interface (CLI).
 
 We will also cover:
-* Authentication & Authorization
-* Testing
-* CI/CD
+* Unit testing
+* Authentication & Authorization using OAuth2
+* CI/CD with Kubernetes, Helm and Flux
 
 __Are you ready?__
 
