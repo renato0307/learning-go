@@ -234,6 +234,11 @@ func (ff *FinanceFunctions) callLastCandleApi(from, to string) (fsaApiResponse, 
 		return response, err
 	}
 
+	if len(response.Response) == 0 {
+		err = fmt.Errorf("invalid data returned for: %s", url)
+		return response, err
+	}
+
 	return response, nil
 }
 ```

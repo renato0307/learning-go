@@ -63,10 +63,10 @@ __Are you ready?__
 1. [Challenge: Add the programming/jwtdebugger command to the CLI](it7-cli-add-programming-jwtdebugger-cmd.md)
 1. [Challenge: Add the finance/currency-converter command to the CLI](it7-cli-add-finance-currconv-cmd.md)
 
-## Iteration 8 - increasing test coverage
+## Iteration 8 - increasing test code coverage
 
 1. [How to check the test coverage?](it8-check-test-coverage.md)
-1. Increase coverage in the Lib
+1. [Increase coverage in the Lib](it8-lib-test-code-coverage.md)
 1. Increase coverage in the API
 1. Increase coverage in the CLI
 
