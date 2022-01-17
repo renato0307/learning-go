@@ -2,11 +2,10 @@
 
 Learn Go by building a REST API and a Command Line Interface (CLI).
 
-Both will have production quality so we additionally need to cover:
+We will also cover:
 * Authentication & Authorization
 * Testing
 * CI/CD
-* Monitoring & Observability
 
 __Are you ready?__
 
@@ -61,12 +60,16 @@ __Are you ready?__
 1. [Add the configure command to the CLI](it7-cli-add-configure-cmd.md)
 1. [Add the programming/uuid command to the CLI](it7-cli-add-programming-uuid-cmd.md)
 1. [CI/CD for the CLI](it7-cli-ci-cd.md)
-1. Autocompletion
 1. [Challenge: Add the programming/jwtdebugger command to the CLI](it7-cli-add-programming-jwtdebugger-cmd.md)
 1. [Challenge: Add the finance/currency-converter command to the CLI](it7-cli-add-finance-currconv-cmd.md)
 
-## Next Iterations - WIP
-1. Dapr (https://dapr.io)
-1. Monitoring & alarms
-1. Increase testing coverage
-1. Go tools (gofmt, go mod, ...)
+## Iteration 8 - increasing test coverage
+
+1. How to check the test coverage?
+1. Increase coverage in the Lib
+1. Increase coverage in the API
+1. Increase coverage in the CLI
+
+## Conclusion
+
+1. What's next?
