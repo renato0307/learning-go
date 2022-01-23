@@ -181,3 +181,8 @@ After a couple of minutes, head to GitHub and a new release should be created.
 The contents will be similar to:
 
 ![New Release](assets/cli-cicd-release-github.png)
+
+# Next
+ 
+The next section is
+[Challenge: Add the programming/jwtdebugger command to the CLI](it7-cli-add-programming-jwtdebugger-cmd.md).

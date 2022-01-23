@@ -145,3 +145,7 @@ git push
 git tag -a v0.0.5 -m "v0.0.5"
 git push origin v0.0.5
 ```
+# Next
+ 
+The next section is
+[Improve API error handling](it5-improve-api-error-handling.md).

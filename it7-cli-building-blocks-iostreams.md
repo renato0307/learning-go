@@ -134,3 +134,8 @@ func NewAPITestServer(body string, expectedQueryParams []string, httpStatus int)
 	return srv
 }
 ```
+
+# Next
+ 
+The next section is
+[Add the configure command to the CLI](it7-cli-add-configure-cmd.md).

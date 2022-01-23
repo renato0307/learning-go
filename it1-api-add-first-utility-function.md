@@ -298,3 +298,8 @@ Date: Wed, 21 Dec 2021 21:02:37 GMT
     "uuid": "2ea3a39b-51a1-4fe3-80b0-9d9a33d176be"
 }
 ```
+
+# Next
+ 
+The next section is
+[Unit tests in the API using mocks](it1-api-unit-tests-with-mocks.md).

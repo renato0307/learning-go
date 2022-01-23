@@ -386,3 +386,8 @@ git push
 git tag -a v0.0.2 -m "v0.0.2"
 git push origin v0.0.2
 ```
+
+# Next
+ 
+The next section is
+[Add finance/currency-converter to the library](it3-add-finance-currency-converter-lib.md).

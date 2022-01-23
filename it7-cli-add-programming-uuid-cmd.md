@@ -503,3 +503,8 @@ git add .
 git commit -m "feat: add programming/uuid command"
 git push
 ```
+
+# Next
+ 
+The next section is
+[CI/CD for the CLI](it7-cli-ci-cd.md).

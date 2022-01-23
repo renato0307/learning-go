@@ -188,3 +188,8 @@ func TestNewAccessToken(t *testing.T) {
 	}
 }
 ```
+
+# Next
+ 
+The next section is
+[CLI building blocks: IO streams & testing helpers](it7-cli-building-blocks-iostreams.md).

@@ -26,3 +26,8 @@ different projects.
 
 __NOTE__: diagrams use [the C4 model](https://c4model.com/)
  for visualizing software architecture.
+
+ # Next
+ 
+ The next section is
+ [Prepare the development environment](intro-prepare-dev-env.md).

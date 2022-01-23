@@ -211,3 +211,8 @@ Total 1 (delta 0), reused 0 (delta 0)
 To github.com:renato0307/learning-go-lib.git
  * [new tag]         v0.0.1 -> v0.0.1
 ```
+
+# Next
+ 
+The next section is
+[Start the project for the API](it1-api-start-the-project.md).

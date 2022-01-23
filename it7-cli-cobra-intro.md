@@ -183,3 +183,8 @@ blocks, common to all commands:
 1. Testing
 
 Let's go!
+
+# Next
+ 
+The next section is
+[CLI building blocks: configuration](it7-cli-building-blocks-configuration.md).

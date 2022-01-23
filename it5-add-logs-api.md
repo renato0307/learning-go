@@ -144,3 +144,8 @@ git push
 git tag -a v0.0.7 -m "v0.0.7"
 git push origin v0.0.7
 ```
+
+# Next
+ 
+The next section is
+[Make Gin use structured logs](it5-gin-structured-logging.md).

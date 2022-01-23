@@ -55,3 +55,7 @@ cluster.
 
 Follow the instructions available at https://kind.sigs.k8s.io/docs/user/loadbalancer.
 
+# Next
+ 
+The next section is
+[Create a Helm chart for the API](it4-create-helm-chart-api.md).

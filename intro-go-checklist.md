@@ -99,3 +99,7 @@ This page compares what we are going to cover when compared with the Go Tour.
 |Default Selection|-|
 |sync.Mutex|-|
 
+ # Next
+ 
+ The next section is
+ [Start the project for the Library](it1-lib-start-the-project.md).

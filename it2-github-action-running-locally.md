@@ -21,3 +21,9 @@ use `act` to run the actions locally.
 So, follow up the installations instructions.
 
 Run `act -h` to ensure the installation is working.
+
+# Next
+ 
+The next section is
+[GitHub actions for the Library](it2-github-actions-for-the-library.md).
+

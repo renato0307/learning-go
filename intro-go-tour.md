@@ -13,4 +13,7 @@ provide the "GO-EXTRA" blocks with more information about certain topics.
 Whenever you see "🕵️‍♀️ __GO-EXTRA__", it is a block with additional contents, not
 critical for the current context, that you can skip to read later.
 
-
+ # Next
+ 
+The next section is
+[What you will learn about Go (checklist)](intro-go-checklist.md)

@@ -263,3 +263,8 @@ Date: Wed, 28 Dec 2021 20:45:52 GMT
 ## Wrap up
 
 Commit and push everything to GitHub.
+
+# Next
+ 
+The next section is
+[Deploy the API using Flux](it4-deploy-api-using-fluxcd.md).

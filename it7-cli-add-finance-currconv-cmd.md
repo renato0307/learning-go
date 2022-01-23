@@ -4,3 +4,8 @@
 to implement the `finance/currconv`.
 
 If you have a hard time implementing it please [open an issue](https://github.com/renato0307/learning-go/issues/new) with your questions/difficulties.
+
+# Next
+ 
+The next section is
+[How to check the test coverage?](it8-check-test-coverage.md).

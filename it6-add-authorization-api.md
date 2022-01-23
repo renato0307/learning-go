@@ -368,3 +368,8 @@ git push
 git tag -a v0.0.10 -m "v0.0.10"
 git push origin v0.0.10
 ```
+
+# Next
+ 
+The next section is
+[Start the project](it7-cli-start-the-project.md).

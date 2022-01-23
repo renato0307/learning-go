@@ -46,3 +46,8 @@ achieve with [curl](https://curl.se) or
 
 I like the use the latest, httpie, because it tries to make CLI interaction
 with web services as human-friendly as possible.
+
+ # Next
+ 
+ The next section is
+ [Please do a Go tour](intro-go-tour.md).

@@ -248,3 +248,8 @@ git push origin v0.0.6
 ```
 
 After some minutes we should have the new version installed in our k8s cluster.
+
+# Next
+ 
+The next section is
+[Add structured logs to the API](it5-add-logs-api.md).

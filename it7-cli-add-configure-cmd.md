@@ -291,3 +291,8 @@ git add .
 git commit -m "feat: add configure command"
 git push
 ```
+
+# Next
+ 
+The next section is
+[Add the programming/uuid command to the CLI](it7-cli-add-programming-uuid-cmd.md).

@@ -267,3 +267,8 @@ The workflow details:
 
 When the execution completes, go to Docker Hub and check the created/updated
 image, like we did when testing using `act`.
+
+# Next
+ 
+The next section is
+[Add programming/jwtdebugger to the library and API](it3-add-programming-jwt-debugger.md).

@@ -329,3 +329,8 @@ git push
 git tag -a v0.0.8 -m "v0.0.8"
 git push origin v0.0.8
 ```
+
+# Next
+ 
+The next section is
+[Configure Amazon Cognito as an OAuth2 server](it6-create-cognito-user-pool.md).

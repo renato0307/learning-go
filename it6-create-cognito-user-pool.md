@@ -223,3 +223,8 @@ x-amz-cognito-request-id: 22f9a72b-a3bc-4d37-adf7-5d5743a44959
     "token_type": "Bearer"
 }
 ```
+
+# Next
+ 
+The next section is
+[Add authentication to the API](it6-add-authentication-api.md).

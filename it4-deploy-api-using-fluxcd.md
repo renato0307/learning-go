@@ -495,3 +495,8 @@ And that's it.
 
 We are now able to deploy our API automatically just by creating new tags in
 GitHub.
+
+# Next
+ 
+The next section is
+[Change API file structure](it5-change-api-file-structure.md).

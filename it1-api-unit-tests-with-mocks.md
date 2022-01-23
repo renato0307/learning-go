@@ -404,3 +404,8 @@ func TestPostUuid(t *testing.T) {
 ```
 
 🏋️‍♀️ __CHALLENGE__: fix the other test in the file and make everything green.
+
+# Next
+ 
+The next section is
+[GitHub actions running locally](it2-github-action-running-locally.md).

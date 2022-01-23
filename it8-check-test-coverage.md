@@ -55,3 +55,8 @@ When using VS Code you can see directly the code coverage for a specific file:
 1. The lines covered/uncovered will be signalled in green/red
 
 ![Test Coverage VS Code](assets/testcoverage-vscode.png)
+
+# Next
+ 
+The next section is
+1. [Increase coverage in the Lib](it8-lib-test-code-coverage.md).

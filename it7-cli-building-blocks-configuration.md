@@ -332,3 +332,8 @@ func TestAddCommandWithConfigPreCheck(t *testing.T) {
 	assert.Contains(t, parentCmd.Commands(), cmd)
 }
 ```
+
+# Next
+ 
+The next section is
+[CLI building blocks: authentication](it7-cli-building-blocks-authentication.md).

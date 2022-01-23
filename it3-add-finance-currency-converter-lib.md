@@ -480,3 +480,8 @@ git push
 git tag -a v0.0.4 -m "v0.0.4"
 git push origin v0.0.4
 ```
+
+# Next
+ 
+The next section is
+[Add finance/currency-converter to the API](it3-add-finance-currency-converter-api.md).

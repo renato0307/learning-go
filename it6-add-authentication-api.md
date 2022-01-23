@@ -765,5 +765,9 @@ learning-go-api-6cc97b95cc-pmrpd   1/1     Running   0          1m24s
 learning-go-api-6cc97b95cc-wb579   1/1     Running   0          1m33s
 ```
 
-Execute the manual tests using the endpoint for the API running in the cluster
-to check if everything is working as expected.
+Execute the manual tests using the endpoint for the API running in the cluster to check if everything is working as expected.
+
+# Next
+ 
+The next section is
+[Add authorization to the API](it6-add-authorization-api.md).
