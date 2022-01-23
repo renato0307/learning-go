@@ -232,3 +232,8 @@ git push
 git tag -a v0.0.5 -m "v0.0.5"
 git push origin v0.0.5
 ```
+
+# Next
+ 
+The next section is
+[Increase coverage in the API](it8-api-test-code-coverage.md).

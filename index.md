@@ -67,7 +67,7 @@ __Are you ready?__
 
 1. [How to check the test coverage?](it8-check-test-coverage.md)
 1. [Increase coverage in the Lib](it8-lib-test-code-coverage.md)
-1. Increase coverage in the API
+1. [Increase coverage in the API](it8-api-test-code-coverage.md)
 1. Increase coverage in the CLI
 
 ## Conclusion
