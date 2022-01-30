@@ -1,0 +1,1 @@
+# Increase coverage in the CLI
